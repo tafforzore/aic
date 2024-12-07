@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+import '../../generated/locales.g.dart';
 import '../../infrastructure/navigation/routes.dart';
 import 'controllers/introduction_page.controller.dart';
 
@@ -30,8 +31,8 @@ class IntroductionPageScreen extends GetView<IntroductionPageController> {
       key: introKey,
       pages: [
         PageViewModel(
-          title: "Welcome to Our App!",
-          body: "Discover the best features of our app.",
+          title: LocaleKeys.welcome_app.tr,
+          body: LocaleKeys.welcome_app_text.tr,
           image: _buildImage('images/cameras.png'),
           decoration: pageDecoration.copyWith(
             bodyAlignment: Alignment.center, // Center the body
@@ -39,8 +40,8 @@ class IntroductionPageScreen extends GetView<IntroductionPageController> {
           ),
         ),
         PageViewModel(
-          title: "Seamless Integration",
-          body: "Enjoy smooth experience across all devices.",
+          title: LocaleKeys.seamless_integration.tr,
+          body: LocaleKeys.seamless_integration_text.tr,
           image: _buildImage('images/carte.png'),
           decoration: pageDecoration.copyWith(
             bodyAlignment: Alignment.center,
@@ -48,8 +49,8 @@ class IntroductionPageScreen extends GetView<IntroductionPageController> {
           ),
         ),
         PageViewModel(
-          title: "Start Now!",
-          body: "Let’s get started and explore.",
+          title: LocaleKeys.Start_Now.tr,
+          body: LocaleKeys.Start_Now_text.tr,
           image: _buildImage('images/banderole.png'),
           decoration: pageDecoration.copyWith(
             bodyAlignment: Alignment.center,
@@ -60,9 +61,9 @@ class IntroductionPageScreen extends GetView<IntroductionPageController> {
       onDone: () => _onIntroEnd(context),
       onSkip: () => _onIntroEnd(context),
       showSkipButton: true,
-      skip: const Text('Skip'),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done'),
+      skip:  Text(LocaleKeys.Skip.tr),
+      next:  Icon(Icons.arrow_forward),
+      done:  Text(LocaleKeys.Done.tr),
     );
   }
 }

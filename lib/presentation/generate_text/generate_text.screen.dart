@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../generated/locales.g.dart';
 import '../components/app_colors.dart';
 import 'controllers/generate_text.controller.dart';
 
@@ -12,14 +13,13 @@ class GenerateTextScreen extends GetView<GenerateTextController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
-        title: const Text("Prendre une Photo"),
+        title:  Text(LocaleKeys.take_picture.tr),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Zone pour afficher la photo capturée
             Obx(() {
               return controller.capturedImage.value == null
                   ? Container(
@@ -31,7 +31,7 @@ class GenerateTextScreen extends GetView<GenerateTextController> {
                 ),
                 child: Center(
                   child: Text(
-                    "Aucune photo capturée",
+                    LocaleKeys.no_take_picture.tr,
                     style: TextStyle(
                       color: AppColor.greyColor,
                       fontSize: 16,
@@ -56,19 +56,18 @@ class GenerateTextScreen extends GetView<GenerateTextController> {
             ElevatedButton.icon(
               onPressed: controller.takePhoto,
               icon: const Icon(Icons.camera),
-              label: const Text("Prendre une Photo"),
+              label:  Text(LocaleKeys.take_picture.tr),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.primaryColor,
               ),
             ),
             const SizedBox(height: 20),
-            // Zone pour afficher le texte généré
             Obx(() {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Texte généré :",
+                    LocaleKeys.generate_text.tr,
                     style: TextStyle(
                       color: AppColor.primaryColor,
                       fontSize: 16,
@@ -92,22 +91,21 @@ class GenerateTextScreen extends GetView<GenerateTextController> {
               );
             }),
             const SizedBox(height: 20),
-            // Bouton pour copier le texte
             Obx(() {
               return ElevatedButton.icon(
                 onPressed: controller.copyText,
                 icon: Icon(
                   controller.isTextCopied.value
                       ? Icons.check_circle
-                      : Icons.copy, // Change l'icône en fonction de l'état
+                      : Icons.copy,
                   color: controller.isTextCopied.value
-                      ? Colors.green // Couleur de l'icône après copie
+                      ? Colors.green
                       : AppColor.primaryColor,
                 ),
                 label: Text(
                   controller.isTextCopied.value
-                      ? "Texte copié" // Texte après copie
-                      : "Copier le texte", // Texte initial
+                      ? "Texte copié"
+                      : "Copier le texte",
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primaryColor,

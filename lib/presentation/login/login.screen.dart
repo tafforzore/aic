@@ -1,3 +1,4 @@
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:finalaic/presentation/components/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class LoginScreen extends GetView<LoginController> {
                           SizedBox(height: AppSize.textSize),
 
                           Text(
-                            "Se Connecter",
+                            LocaleKeys.connexion.tr,
                             style: TextStyle(fontSize: AppSize.titleSize, fontWeight: FontWeight.bold, color: AppColor.primaryColor),
                           ),
                           SizedBox(height: AppSize.textSize),
@@ -55,7 +56,7 @@ class LoginScreen extends GetView<LoginController> {
                           TextField(
                             controller: controller.username,
                             decoration: InputDecoration(
-                              labelText: "Username",
+                              labelText: LocaleKeys.username.tr,
                               border:  OutlineInputBorder(borderRadius: BorderRadius.circular(30), gapPadding: 10),
                               labelStyle: TextStyle(fontSize: AppSize.textSize,color: AppColor.primaryColor),
                             ),
@@ -65,7 +66,7 @@ class LoginScreen extends GetView<LoginController> {
                               controller: controller.password,
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: "Password",
+                                labelText: LocaleKeys.password.tr,
                                 border:  OutlineInputBorder(borderRadius: BorderRadius.circular(30), gapPadding: 10),
                                 labelStyle: TextStyle(fontSize: AppSize.textSize,color: AppColor.primaryColor),)
                           ),
@@ -77,7 +78,7 @@ class LoginScreen extends GetView<LoginController> {
                                 onPressed: () {
                                   Get.offNamed(Routes.FORGET_PASSWORD);
                                 },
-                                child: Text("Mot de passe oublié",
+                                child: Text(LocaleKeys.lost_password.tr,
                                   style:  TextStyle(color: AppColor.primaryColor),
                                 ),
                               ),
@@ -85,7 +86,7 @@ class LoginScreen extends GetView<LoginController> {
                                 onPressed: () {
                                   Get.offNamed(Routes.REGISTER);
                                 },
-                                child: Text("Inscription",
+                                child: Text(LocaleKeys.inscription.tr,
                                   style:  TextStyle(color: AppColor.primaryColor),),
                               ),
                             ],
@@ -104,7 +105,7 @@ class LoginScreen extends GetView<LoginController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text("Se connecter",
+                                Text(LocaleKeys.connexion.tr,
                                   style:  TextStyle(color: AppColor.primaryColor
                                       , fontSize: AppSize.textSize),),
                               ],
