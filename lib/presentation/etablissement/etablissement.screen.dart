@@ -1,9 +1,5 @@
-import 'package:finalaic/infrastructure/navigation/routes.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
-
 import '../../domain/entities/etablissement.dart';
 import '../../generated/locales.g.dart';
 import '../components/Shimmer.dart';
@@ -55,7 +51,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                       return Container(
                         margin: EdgeInsets.only(top: 8.0),
                         child: Padding(
-                          padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                          padding: EdgeInsets.only(bottom: 1.0, top: 1.0),
                           child: _buildEstablismentItem(establishment),
                         ),
                       );
@@ -89,7 +85,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image.network(
-              etablissement.logo,
+              etablissement.logo ?? '',
               height: 160,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -109,7 +105,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    etablissement.nom_etab,
+                    etablissement.name,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -118,7 +114,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Année académique: ${etablissement.annee_academique}",
+                    "Année académique: ${etablissement.academicYear}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -139,7 +135,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          // Action for SHARE
+                          Get.back();
                         },
                         child: const Text(
                           "Supprimer",
@@ -148,7 +144,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Get.toNamed(Routes.SCHOOL);
+                          controller.goToNextPage(etablissement.name);
                         },
                         child: const Text(
                           "Aller",
@@ -184,12 +180,17 @@ class EtablissementScreen extends GetView<EtablissementController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  etablissement.logo!.isEmpty?
                   Image.network(
-                    etablissement.logo,
-                    height: 100,
+                    etablissement.logo??'',
+                    height: 70,
                     width: 100,
                     fit: BoxFit.cover,
-                  ),
+                  ) :
+                  Image.asset('assets/images/default_etab.png',height: 70,
+                    width: 100,
+                    fit: BoxFit.cover,)
+                  ,
                   Container(width: 20),
                   Expanded(
                     child: Column(
@@ -197,7 +198,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                       children: <Widget>[
                         Container(height: 5),
                         Text(
-                          etablissement.nom_etab,
+                          etablissement.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -206,7 +207,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                         ),
                         Container(height: 5),
                         Text(
-                          etablissement.annee_academique,
+                          etablissement.academicYear??"",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[500],

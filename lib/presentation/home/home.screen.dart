@@ -180,6 +180,7 @@ class ActionPage {
         crossAxisCount: 4,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
+          mainAxisExtent: 100
       ),
       itemBuilder: (context, index) {
         final action = actions[index];

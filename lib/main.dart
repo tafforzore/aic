@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import 'datas/local_storage/encrypted_storage.dart';
+import 'generated/locales.g.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 import 'infrastructure/network/dio_client.dart';
@@ -60,6 +61,9 @@ class Main extends StatelessWidget with WidgetsBindingObserver {
           smartManagement: SmartManagement.onlyBuilder,
           title: 'AIC',
           initialRoute: initialRoute,
+          translationsKeys: AppTranslation.translations,
+          locale: Locale('fr'),
+          fallbackLocale: Locale('en'),
           getPages: Nav.routes,
           theme:  ThemeData(
             fontFamily: 'Monsterrat',

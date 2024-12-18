@@ -130,7 +130,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image.network(
-              etablissement.logo,
+              etablissement.logo??'',
               height: 160,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    etablissement.nom_etab,
+                    etablissement.name,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -159,7 +159,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Année académique: ${etablissement.annee_academique}",
+                    "Année académique: ${etablissement.academicYear}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -226,7 +226,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Image.network(
-                    etablissement.logo,
+                    etablissement.logo ?? '',
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,
@@ -238,7 +238,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                       children: <Widget>[
                         Container(height: 5),
                         Text(
-                          etablissement.nom_etab,
+                          etablissement.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -247,7 +247,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                         ),
                         Container(height: 5),
                         Text(
-                          etablissement.annee_academique,
+                          etablissement.academicYear?? '',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[500],

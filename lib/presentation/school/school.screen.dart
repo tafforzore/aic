@@ -12,25 +12,26 @@ import 'controllers/school.controller.dart';
 
 class SchoolScreen extends GetView<SchoolController> {
   const SchoolScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomAppBar(
-            title: LocaleKeys.classe.tr,
-            backgroundImageUrl: "https://via.placeholder.com/800x400",
-            actions: [
-              IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Notifications clicked")),
-                  );
-                },
-              ),
-            ],
-          ),
+           CustomAppBar(
+              title:  controller.etablissement.value,
+              backgroundImageUrl: "https://via.placeholder.com/800x400",
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.notifications, color: Colors.white),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Notifications clicked")),
+                    );
+                  },
+                ),
+              ],
+            ),
 
           Obx(() {
             if (!controller.hide.value) {
@@ -46,7 +47,7 @@ class SchoolScreen extends GetView<SchoolController> {
                     ),
                   ),
                 );
-              }else{
+              } else {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (context, index) {
@@ -63,7 +64,6 @@ class SchoolScreen extends GetView<SchoolController> {
                   ),
                 );
               }
-
             } else {
               return ShimmerEtablissement();
             }
@@ -73,8 +73,8 @@ class SchoolScreen extends GetView<SchoolController> {
     );
   }
 
-  Widget dialog(Etablissement etablissement){
-    return  Dialog(
+  Widget dialog(Etablissement etablissement) {
+    return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -84,14 +84,14 @@ class SchoolScreen extends GetView<SchoolController> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Image.network(
-              etablissement.logo,
+              etablissement.logo ?? '',
               height: 100,
               width: 100,
               fit: BoxFit.cover,
             ),
             SizedBox(height: 10),
             Text(
-              etablissement.nom_etab,
+              etablissement.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -99,7 +99,7 @@ class SchoolScreen extends GetView<SchoolController> {
             ),
             SizedBox(height: 10),
             Text(
-              "Année académique: ${etablissement.annee_academique}",
+              "Année académique: ${etablissement.academicYear}",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -139,7 +139,7 @@ class SchoolScreen extends GetView<SchoolController> {
 
   Widget _buildEstablismentItem(Etablissement etablissement) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Get.dialog(dialog(etablissement));
       },
       child: Card(
@@ -156,7 +156,7 @@ class SchoolScreen extends GetView<SchoolController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Image.network(
-                    etablissement.logo,
+                    etablissement.logo ?? '',
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,
@@ -168,7 +168,7 @@ class SchoolScreen extends GetView<SchoolController> {
                       children: <Widget>[
                         Container(height: 5),
                         Text(
-                          etablissement.nom_etab,
+                          etablissement.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -177,7 +177,7 @@ class SchoolScreen extends GetView<SchoolController> {
                         ),
                         Container(height: 5),
                         Text(
-                          etablissement.annee_academique,
+                          etablissement.academicYear ?? '',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[500],

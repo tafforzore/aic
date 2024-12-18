@@ -1,3 +1,3 @@
 class Assets{
-  static String dev_server_url = "http://127.0.0.1";
+  static String dev_server_url = "http://192.168.137.64";
 }

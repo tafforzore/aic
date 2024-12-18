@@ -1,36 +1,14 @@
 import 'package:finalaic/domain/entities/etablissement.dart';
+import 'package:finalaic/infrastructure/dal/services/school_service.dart';
 import 'package:get/get.dart';
+import '../../../domain/entity_response/etablissment_entity.dart';
+import '../../../infrastructure/dal/enum/etablissementenum.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class EtablissementController extends GetxController {
   //TODO: Implement EtablissementController
-
-  List<Etablissement> etablissements = [
-    Etablissement(
-      "Université de Paris",
-      "2023-2024",
-      "Liberté, Égalité, Fraternité",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "École Polytechnique",
-      "2023-2024",
-      "Excellence, Innovation",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "Université de Lyon",
-      "2023-2024",
-      "Savoir et Partage",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "École des Mines",
-      "2023-2024",
-      "Technologie et Futur",
-      "https://via.placeholder.com/150",
-    ),
-  ];
-
+  late EtablissmentEntity etablissmentEntity;
+  late final etablissements;
   RxBool hide = true.obs;
 
 
@@ -38,10 +16,20 @@ class EtablissementController extends GetxController {
   }
 
   void loadData() async {
-    await Future.delayed(Duration(seconds: 5));
+    etablissmentEntity = await SchoolService().getAllSchoolById();
+    if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
+      etablissements = etablissmentEntity.etablissement;
+      print('voici mes etablissement : ${etablissements}');
+    }
     hide.value = false;
   }
 
+  void goToNextPage(String etablissment_name){
+    Get.toNamed(Routes.SCHOOL,arguments: {
+      'etablissement':etablissment_name
+    });
+    Get.back();
+  }
 
   final count = 0.obs;
   @override

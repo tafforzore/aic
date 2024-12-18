@@ -1,6 +1,7 @@
 import 'package:finalaic/presentation/components/app_colors.dart';
 import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -51,9 +52,14 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       actions: actions,
-      leading: Icon(
-        Icons.arrow_back,
-        color: AppColor.whiteColor,
+      leading: IconButton(
+        onPressed: (){
+          Get.back();
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: AppColor.whiteColor,
+        ),
       ),
       elevation: 6,
     );

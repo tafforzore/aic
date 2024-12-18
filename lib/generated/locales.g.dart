@@ -17,13 +17,13 @@ class LocaleKeys {
       'please_enter_your_phone_number_below_you_will_recieve_an_identification_sms';
   static const enter_phone_number = 'enter_phone_number';
   static const connexion = 'connexion';
-  static const Inscription = 'Inscription';
+  static const inscription = 'inscription';
   static const lost_password = 'lost_password';
   static const phonenumber = 'phonenumber';
   static const email = 'email';
+  static const username = 'username';
   static const name = 'name';
   static const password = 'password';
-  static const title_connexion = 'title_connexion';
   static const school = 'school';
   static const hide = 'hide';
   static const list_school_not_found = 'list_school_not_found';
@@ -31,15 +31,11 @@ class LocaleKeys {
   static const search = 'search';
   static const extract_text = 'extract_text';
   static const new_school = 'new_school';
-  static const create_card = 'create_card';
   static const My_card = 'My_card';
   static const download = 'download';
   static const etudiant_card = 'etudiant_card';
   static const badge = 'badge';
   static const theme = 'theme';
-  static const title_register = 'title_register';
-  static const inscription = 'inscription';
-  static const username = 'username';
   static const classe = 'classe';
   static const student = 'student';
   static const my_card = 'my_card';
@@ -63,6 +59,7 @@ class LocaleKeys {
   static const function_etudiant_card = 'function_etudiant_card';
   static const function_generate_badge = 'function_generate_badge';
   static const function_chanse_theme = 'function_chanse_theme';
+  static const create_card = 'create_card';
   static const your_name = 'your_name';
   static const cancel = 'cancel';
   static const create = 'create';
@@ -81,6 +78,7 @@ class LocaleKeys {
   static const enter_your_surname = 'enter_your_surname';
   static const enter_your_birth_date = 'enter_your_birth_date';
   static const enter_your_birth_adress = 'enter_your_birth_adress';
+  static const title_register = 'title_register';
 }
 
 class Locales {
@@ -88,101 +86,145 @@ class Locales {
     'app_name': 'Photos',
     'identification': 'Identification',
     'please_enter_your_phone_number_below_you_will_recieve_an_identification_sms':
-        'Veuillez entrer votre numéro de téléphone ci-dessous. Vous recevrez un SMS d\'identification.',
-    'enter_phone_number': 'Entrer numéro de téléphone',
-    'connexion': 'connexion',
-    'Inscription': 'connexion',
-    'lost_password': 'connexion',
-    'phonenumber': 'connexion',
-    'email': 'connexion',
-    'name': 'connexion',
-    'password': 'connexion',
-    'title_connexion': 'connexion',
-    'school': 'connexion',
-    'hide': 'connexion',
-    'list_school_not_found': 'connexion',
-    'recent': 'connexion',
-    'search': 'connexion',
-    'extract_text': 'connexion',
-    'new_school': 'connexion',
-    'create_card': 'connexion',
-    'My_card': 'connexion',
-    'download': 'connexion',
-    'etudiant_card': 'connexion',
-    'badge': 'connexion',
-    'theme': 'connexion',
-    'title_register': 'connexion',
+        'Please enter your phone number below. You will receive an identification SMS.',
+    'enter_phone_number': 'Enter your phone number',
+    'connexion': 'Login',
+    'inscription': 'Sign Up',
+    'lost_password': 'Forgot Password',
+    'phonenumber': 'Your Phone Number',
+    'email': 'Your Email Address',
+    'username': 'Username',
+    'name': 'Full Name',
+    'password': 'Password',
+    'school': 'School',
+    'hide': 'Hide',
+    'list_school_not_found': 'No schools found',
+    'recent': 'Recent',
+    'search': 'Search',
+    'extract_text': 'Extract Text',
+    'new_school': 'Create a School',
+    'My_card': 'My Cards',
+    'download': 'Download',
+    'etudiant_card': 'Student Card',
+    'badge': 'Create a Badge',
+    'theme': 'Theme',
+    'classe': 'Class',
+    'student': 'Students',
+    'my_card': 'My Card',
+    'shool_year': 'Academic Year',
+    'devise': 'Currency',
+    'delete': 'Delete',
+    'go': 'Continue',
+    'take_picture': 'Take a Picture',
+    'no_take_picture': 'No picture captured',
+    'generate_text': 'Generated Text:',
+    'copied_text': 'Text successfully copied',
+    'copy_text': 'Copy Text',
+    'Home': 'Home',
+    'Search': 'Search',
+    'Profile': 'Profile',
+    'welcome_to': 'Welcome to ',
+    'function_extract_text': 'Text extraction enabled.',
+    'function_create_card': 'Creating a personalized card.',
+    'function_my_card': 'Displaying your card.',
+    'function_download': 'Download in progress, please wait.',
+    'function_etudiant_card': 'Student card management enabled.',
+    'function_generate_badge': 'Generating badge...',
+    'function_chanse_theme': 'Theme successfully changed.',
+    'create_card': 'Create a Card',
+    'your_name': 'Name',
+    'cancel': 'Cancel',
+    'create': 'Create',
+    'Skip': 'Skip',
+    'Done': 'Done',
+    'welcome_app': 'Welcome to AIC!',
+    'seamless_integration': 'Seamless Integration',
+    'Start_Now': 'Start Now',
+    'Start_Now_text': 'Let’s get started and explore together!',
+    'seamless_integration_text':
+        'Generate your cards quickly and easily, saving you valuable time.',
+    'welcome_app_text':
+        'Artificial Intelligence Card: Our app is designed to simplify the creation of your professional cards.',
+    'your_surname': 'Surname',
+    'your_adress': 'Address',
+    'birth_date': 'Date of Birth',
+    'enter_your_name': 'Please enter your full name',
+    'enter_your_surname': 'Please enter your surname',
+    'enter_your_birth_date': 'Please enter your date of birth',
+    'enter_your_birth_adress': 'Please enter your address',
+    'title_register': 'Sign Up',
   };
   static const fr = {
     'app_name': 'Photos',
     'identification': 'Identification',
     'please_enter_your_phone_number_below_you_will_recieve_an_identification_sms':
-        'Veuillez entrer votre numéro de téléphone ci-dessous. Vous recevrez un SMS d\'identification.',
-    'enter_phone_number': 'Entrer numéro de téléphone',
-    'connexion': 'Se Connexion',
-    'inscription': 'S\'Inscription',
-    'lost_password': 'Mots de passe oublier',
-    'phonenumber': 'Votre Numeros',
-    'email': 'Votre Email',
-    'username': 'Votre nom utilisateur',
-    'name': 'Votre Nom',
-    'password': 'Votre Mots de passe',
-    'school': 'connexion',
-    'hide': 'cacher',
-    'list_school_not_found': 'connexion',
-    'recent': 'connexion',
-    'search': 'connexion',
-    'extract_text': 'connexion',
-    'new_school': 'connexion',
-    'My_card': 'connexion',
-    'download': 'connexion',
-    'etudiant_card': 'connexion',
-    'badge': 'connexion',
-    'theme': 'connexion',
-    'classe': 'connexion',
-    'student': 'connexion',
-    'my_card': 'Ma Carte',
+        'Veuillez entrer votre numéro de téléphone ci-dessous. Un SMS d\'identification vous sera envoyé.',
+    'enter_phone_number': 'Saisissez votre numéro de téléphone',
+    'connexion': 'Connexion',
+    'inscription': 'Inscription',
+    'lost_password': 'Mot de passe oublié',
+    'phonenumber': 'Votre numéro de téléphone',
+    'email': 'Votre adresse email',
+    'username': 'Nom d\'utilisateur',
+    'name': 'Nom complet',
+    'password': 'Mot de passe',
+    'school': 'Établissement scolaire',
+    'hide': 'Masquer',
+    'list_school_not_found': 'Aucun établissement scolaire trouvé',
+    'recent': 'Récents',
+    'search': 'Rechercher',
+    'extract_text': 'Extraire le texte',
+    'new_school': 'Créer un établissement scolaire',
+    'My_card': 'Mes cartes',
+    'download': 'Téléchargement',
+    'etudiant_card': 'Carte étudiant',
+    'badge': 'Créer un badge',
+    'theme': 'Thème',
+    'classe': 'Classe',
+    'student': 'Élèves',
+    'my_card': 'Ma carte',
     'shool_year': 'Année académique',
-    'devise': 'Devise',
+    'devise': 'Monnaie',
     'delete': 'Supprimer',
-    'go': 'Aller',
-    'take_picture': 'Prendre une Photo',
+    'go': 'Continuer',
+    'take_picture': 'Prendre une photo',
     'no_take_picture': 'Aucune photo capturée',
     'generate_text': 'Texte généré :',
-    'copied_text': 'Texte copié',
+    'copied_text': 'Texte copié avec succès',
     'copy_text': 'Copier le texte',
-    'Home': 'Home',
-    'Search': 'Search',
-    'Profile': 'Profile',
-    'welcome_to': 'Bienvenu sur ',
-    'function_extract_text': 'Fonctionnalité d\'extraction activée !',
-    'function_create_card': 'Création d\'une carte personnalisée !',
-    'function_my_card': 'Affichage de votre carte !',
-    'function_download': '"Téléchargement en cours..."',
-    'function_etudiant_card': 'Gestion des cartes étudiantes !',
-    'function_generate_badge': 'Génération de badges...',
-    'function_chanse_theme': 'Changement de thème !',
-    'create_card': '"Creer une Carte"',
+    'Home': 'Accueil',
+    'Search': 'Recherche',
+    'Profile': 'Profil',
+    'welcome_to': 'Bienvenue sur ',
+    'function_extract_text': 'Extraction de texte activée.',
+    'function_create_card': 'Création d\'une carte personnalisée en cours.',
+    'function_my_card': 'Affichage de votre carte personnelle.',
+    'function_download': 'Téléchargement en cours, veuillez patienter.',
+    'function_etudiant_card': 'Gestion des cartes étudiantes activée.',
+    'function_generate_badge': 'Génération de badge en cours...',
+    'function_chanse_theme': 'Thème modifié avec succès.',
+    'create_card': 'Créer une carte',
     'your_name': 'Nom',
     'cancel': 'Annuler',
-    'create': 'Creer',
+    'create': 'Créer',
     'Skip': 'Passer',
-    'Done': 'Terminer',
-    'welcome_app': 'Bienvenue sur AIC!',
-    'seamless_integration': 'Une Integration Facile',
-    'Start_Now': 'Commencer maintenat !',
-    'Start_Now_text': 'C\'est partie , Decouvrons le enseble !',
+    'Done': 'Terminé',
+    'welcome_app': 'Bienvenue sur AIC !',
+    'seamless_integration': 'Une intégration fluide',
+    'Start_Now': 'Commencer maintenant',
+    'Start_Now_text':
+        'C\'est parti, découvrons ensemble toutes les fonctionnalités !',
     'seamless_integration_text':
-        'Generer vos cartes  rapidement et facilement vous faisant gagner un temps enormes .',
+        'Générez vos cartes en un temps record grâce à notre solution rapide et intuitive.',
     'welcome_app_text':
-        'Artificial intelligence card, notre application faites pour vous faciliter la generations de cartes.',
-    'your_surname': 'Prenom',
+        'Artificial Intelligence Card : une application conçue pour faciliter la création de vos cartes professionnelles.',
+    'your_surname': 'Prénom',
     'your_adress': 'Adresse',
     'birth_date': 'Date de naissance',
-    'enter_your_name': 'Veuillez entrer votre nom',
-    'enter_your_surname': 'Veuillez entrer votre prenom',
-    'enter_your_birth_date': 'Veuillez entrer votre date de naissance',
-    'enter_your_birth_adress': 'Veuillez entrer votre adresse',
-    'title_register': 'connexion',
+    'enter_your_name': 'Veuillez saisir votre nom complet',
+    'enter_your_surname': 'Veuillez saisir votre prénom',
+    'enter_your_birth_date': 'Veuillez saisir votre date de naissance',
+    'enter_your_birth_adress': 'Veuillez saisir votre adresse de naissance',
+    'title_register': 'Créer un compte',
   };
 }
