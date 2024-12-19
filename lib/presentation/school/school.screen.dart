@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../domain/entities/etablissement.dart';
+import '../../domain/entities/school.dart';
 import '../../generated/locales.g.dart';
 import '../../infrastructure/navigation/routes.dart';
 import '../components/Shimmer.dart';
@@ -35,7 +36,7 @@ class SchoolScreen extends GetView<SchoolController> {
 
           Obx(() {
             if (!controller.hide.value) {
-              if (controller.etablissements.isEmpty) {
+              if (controller.schools.isEmpty) {
                 return SliverToBoxAdapter(
                   child: Center(
                     child: Text(
@@ -51,16 +52,16 @@ class SchoolScreen extends GetView<SchoolController> {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                      final establishment = controller.etablissements[index];
+                      final school = controller.schools[index];
                       return Container(
                         margin: EdgeInsets.only(top: 8.0),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                          child: _buildEstablismentItem(establishment),
+                          child: _buildEstablismentItem(school),
                         ),
                       );
                     },
-                    childCount: controller.etablissements.length,
+                    childCount: controller.schools.length,
                   ),
                 );
               }
@@ -73,7 +74,7 @@ class SchoolScreen extends GetView<SchoolController> {
     );
   }
 
-  Widget dialog(Etablissement etablissement) {
+  Widget dialog(Classe etablissement) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -83,12 +84,12 @@ class SchoolScreen extends GetView<SchoolController> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Image.network(
-              etablissement.logo ?? '',
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
+            // Image.network(
+            //   etablissement.logo ?? '',
+            //   height: 100,
+            //   width: 100,
+            //   fit: BoxFit.cover,
+            // ),
             SizedBox(height: 10),
             Text(
               etablissement.name,
@@ -98,22 +99,22 @@ class SchoolScreen extends GetView<SchoolController> {
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              "Année académique: ${etablissement.academicYear}",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
+            // Text(
+            //   "Année académique: ${etablissement.academicYear}",
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     color: Colors.grey[600],
+            //   ),
+            // ),
             SizedBox(height: 10),
-            Text(
-              "Devise: ${etablissement.devise}",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
-            SizedBox(height: 20),
+            // Text(
+            //   "Devise: ${etablissement.devise}",
+            //   style: TextStyle(
+            //     fontSize: 16,
+            //     color: Colors.grey[600],
+            //   ),
+            // ),
+            // SizedBox(height: 20),
 
             Row(
               children: [
@@ -137,10 +138,10 @@ class SchoolScreen extends GetView<SchoolController> {
     );
   }
 
-  Widget _buildEstablismentItem(Etablissement etablissement) {
+  Widget _buildEstablismentItem(Classe classe) {
     return InkWell(
       onTap: () {
-        Get.dialog(dialog(etablissement));
+        Get.dialog(dialog(classe));
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -155,12 +156,12 @@ class SchoolScreen extends GetView<SchoolController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Image.network(
-                    etablissement.logo ?? '',
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
+                  // Image.network(
+                  //   classe.logo ?? '',
+                  //   height: 100,
+                  //   width: 100,
+                  //   fit: BoxFit.cover,
+                  // ),
                   Container(width: 20),
                   Expanded(
                     child: Column(
@@ -168,7 +169,7 @@ class SchoolScreen extends GetView<SchoolController> {
                       children: <Widget>[
                         Container(height: 5),
                         Text(
-                          etablissement.name,
+                          classe.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -176,22 +177,22 @@ class SchoolScreen extends GetView<SchoolController> {
                           ),
                         ),
                         Container(height: 5),
-                        Text(
-                          etablissement.academicYear ?? '',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                        Container(height: 10),
-                        Text(
-                          etablissement.devise,
-                          maxLines: 2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
+                        // Text(
+                        //   classe.academicYear ?? '',
+                        //   style: TextStyle(
+                        //     fontSize: 14,
+                        //     color: Colors.grey[500],
+                        //   ),
+                        // ),
+                        // Container(height: 10),
+                        // Text(
+                        //   classe.cachet,
+                        //   maxLines: 2,
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     color: Colors.grey[700],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

@@ -13,7 +13,7 @@ class StudentController extends GetxController {
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
-      user: null,
+      user: null, phone: 'null',
     ),
     Etablissement(
       id: 2,
@@ -24,7 +24,7 @@ class StudentController extends GetxController {
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
-      user: null,
+      user: null, phone: '',
     ),
     Etablissement(
       id: 3,
@@ -35,7 +35,7 @@ class StudentController extends GetxController {
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
-      user: null,
+      user: null, phone: '',
     ),
     Etablissement(
       id: 4,
@@ -46,7 +46,7 @@ class StudentController extends GetxController {
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
-      user: null,
+      user: null, phone: '',
     ),
   ];
 

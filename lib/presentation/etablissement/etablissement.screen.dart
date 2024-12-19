@@ -144,7 +144,8 @@ class EtablissementScreen extends GetView<EtablissementController> {
                       ),
                       TextButton(
                         onPressed: () {
-                          controller.goToNextPage(etablissement.name);
+                          Get.back();
+                          controller.goToNextPage(etablissement);
                         },
                         child: const Text(
                           "Aller",
@@ -180,7 +181,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  etablissement.logo!.isEmpty?
+                  etablissement.logo!.isNotEmpty?
                   Image.network(
                     etablissement.logo??'',
                     height: 70,

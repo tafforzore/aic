@@ -24,6 +24,11 @@ class EncryptedStorage{
     String? token = await _storage.getString('user_token')??"";
     return token;
   }
+
+  Future<bool> removeToken() async{
+    bool token = await _storage.remove('user_token');
+    return token;
+  }
   Future<String> getRefreshToken() async{
     String? refreshToken = await _storage.getString('refresh_token')??"";
     return refreshToken;

@@ -11,7 +11,7 @@ class IntroductionPageScreen extends GetView<IntroductionPageController> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Get.toNamed(Routes.REGISTER);
+    Get.offNamed(Routes.REGISTER);
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {

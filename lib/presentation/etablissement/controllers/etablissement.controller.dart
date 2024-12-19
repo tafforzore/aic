@@ -16,7 +16,7 @@ class EtablissementController extends GetxController {
   }
 
   void loadData() async {
-    etablissmentEntity = await SchoolService().getAllSchoolById();
+    etablissmentEntity = await SchoolService().getAllEtablissementById();
     if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
       etablissements = etablissmentEntity.etablissement;
       print('voici mes etablissement : ${etablissements}');
@@ -24,11 +24,13 @@ class EtablissementController extends GetxController {
     hide.value = false;
   }
 
-  void goToNextPage(String etablissment_name){
-    Get.toNamed(Routes.SCHOOL,arguments: {
-      'etablissement':etablissment_name
+  void goToNextPage(Etablissement etablissment){
+    Get.toNamed(
+        Routes.SCHOOL,
+        arguments: {
+          'etablissement':etablissment.name,
+          'id_ets':etablissment.id.toString()
     });
-    Get.back();
   }
 
   final count = 0.obs;

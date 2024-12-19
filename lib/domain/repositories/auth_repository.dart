@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:cloudinary/cloudinary.dart';
 import 'package:get/get.dart';
 
 import '../../datas/local_storage/encrypted_storage.dart';
@@ -20,6 +21,7 @@ class AuthRepository{
       print(dioClient.dio.options.baseUrl);
       final response = await dioClient.dio.post('/account/register/', data: registerRequest.toMap());
       print("register ${response.data}");
+      print(" reponse du backend ${response.statusCode}");
       if (response.statusCode == HttpStatus.ok) {
         // User user = User.fromJson(response.data);
         // Get.put(user, permanent: true);
@@ -41,22 +43,42 @@ class AuthRepository{
       }
   }
   Future<LoginVerification> login(LoginRequest registerObject) async {
-      final response = await dioClient.dio.post('/account/login', data: registerObject.toMap());
-      print("login ${response.data}");
-      if (response.statusCode == HttpStatus.ok) {
+    try {
+      final response = await dioClient.dio.post(
+        '/account/login/',
+        data: registerObject.toMap(),
+      );
 
+      print("Login Response Data: ${response.data}");
+      print("Login Response Status Code: ${response.statusCode}");
+
+      if (response.statusCode == HttpStatus.ok) {
         final token = response.data['access'];
         final refreshToken = response.data['refresh'];
-        
-        Get.find<EncryptedStorage>().setRefreshToken(refreshToken);
-        Get.find<EncryptedStorage>().setToken(token);
+
+        await Get.find<EncryptedStorage>().setRefreshToken(refreshToken);
+        await Get.find<EncryptedStorage>().setToken(token);
+
         return LoginVerification.CREATED;
-      } else if(response.statusCode == HttpStatus.badRequest){
+      } else if (response.statusCode == HttpStatus.badRequest) {
         return LoginVerification.WRONG_DATA;
-      } else if(response.statusCode == HttpStatus.unauthorized){
+      } else if (response.statusCode == HttpStatus.unauthorized) {
         return LoginVerification.USER_EXIST;
-      }else{
+      } else {
         return LoginVerification.API_ERROR;
       }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        if (e.response!.statusCode == HttpStatus.badRequest) {
+          return LoginVerification.WRONG_DATA;
+        }
+      }
+      return LoginVerification.API_ERROR;
+    } catch (e) {
+      print("Unexpected error: $e");
+      return LoginVerification.API_ERROR;
+    }
   }
+
+
 }

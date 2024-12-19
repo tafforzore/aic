@@ -7,42 +7,51 @@ import '../../../infrastructure/dal/services/auth_services.dart';
 import '../../../infrastructure/navigation/routes.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+
   RxString error = "".obs;
+  RxBool isLoading = false.obs;
+
+  Future<void> loginAction() async {
+    if (username.text.isNotEmpty && password.text.isNotEmpty) {
+      if (password.text.length > 7) {
+        isLoading.value = true;
+
+        try {
+          LoginRequest loginRequest = LoginRequest(
+            username: username.text,
+            password: password.text,
+          );
+
+          LoginVerification loginVerification = await AuthServices().login(
+            loginRequest: loginRequest,
+          );
 
 
-
-  loginAction()async{
-    if(username.value.text.isNotEmpty && password.value.text.isNotEmpty){
-      if(password.value.text.length>7){
-        LoginRequest loginRequest = LoginRequest(username: username.value.text, password: password.value.text);
-        LoginVerification loginVerification = await AuthServices().login(loginRequest: loginRequest);
-
-        if(loginVerification == LoginVerification.CREATED){
-          Get.offNamed(Routes.HOME);
-        }else if(loginVerification == LoginVerification.WRONG_DATA){}
-        else if(loginVerification == LoginVerification.USER_EXIST){
-          error.value = "username existe deja !!";
+          if (loginVerification == LoginVerification.CREATED) {
+            Get.offNamed(Routes.HOME);
+          } else if (loginVerification == LoginVerification.WRONG_DATA) {
+            error.value = "Nom d'utilisateur ou mot de passe incorrect.";
+          } else if (loginVerification == LoginVerification.USER_EXIST) {
+            error.value = "Le nom d'utilisateur existe déjà !";
+          } else {
+            error.value = "Une erreur est survenue lors de la connexion.";
+          }
+        } catch (e) {
+          error.value = "Une erreur s'est produite ";
+        } finally {
+          isLoading.value = false;
         }
-        else{
-          //todo: apiError echec de connexion a api
-          error.value = "une erreur est survenue !!";
-
-        }
-      }else{
-        error.value = "Mots de passe a au moins de 8 caracteres";
+      } else {
+        error.value = "Le mot de passe doit contenir au moins 8 caractères.";
       }
-    }
-    else{
-      error.value = "Veuillez completer tous les champs !!";
+    } else {
+      error.value = "Veuillez compléter tous les champs.";
     }
   }
 
 
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -57,6 +66,4 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

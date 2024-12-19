@@ -1,69 +1,29 @@
+import 'package:finalaic/domain/entity_response/school_entity.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/entities/etablissement.dart';
+import '../../../domain/entities/school.dart';
+import '../../../infrastructure/dal/enum/etablissementenum.dart';
+import '../../../infrastructure/dal/services/school_service.dart';
 
 class SchoolController extends GetxController {
   //TODO: Implement SchoolController
   RxString etablissement = ''.obs;
+  RxString id = ''.obs;
 
-  List<Etablissement> etablissements = [
-    Etablissement(
-      id: 1,
-      name: "Université de Paris",
-      devise: "Liberté, Égalité, Fraternité",
-      contact: "contact@universite-paris.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null,
-    ),
-    Etablissement(
-      id: 2,
-      name: "École Polytechnique",
-      devise: "Excellence, Innovation",
-      contact: "contact@polytechnique.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null,
-    ),
-    Etablissement(
-      id: 3,
-      name: "Université de Lyon",
-      devise: "Savoir et Partage",
-      contact: "contact@universite-lyon.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null,
-    ),
-    Etablissement(
-      id: 4,
-      name: "École des Mines",
-      devise: "Technologie et Futur",
-      contact: "contact@ecole-des-mines.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null,
-    ),
-  ];
-
-
+  List<Classe> schools = [];
   RxBool hide = true.obs;
-
-
   viewDetails(Etablissement etablissements){
   }
 
 
 
   void loadData() async {
-    await Future.delayed(Duration(seconds: 5));
+    ClassEntity schoolEntity = await SchoolService().getAllClasseById(id: id.value);
+    if(schoolEntity.classeEnum == SchoolEnum.OK){
+      schools = schoolEntity.classes!;
+      print('voici mes salle de classe : ${schools}');
+    }
     hide.value = false;
   }
 
@@ -74,6 +34,11 @@ class SchoolController extends GetxController {
     if(Get.arguments.containsKey("etablissement")){
       etablissement.value = Get.arguments["etablissement"]??"";
     }
+
+    if(Get.arguments.containsKey("id_ets")){
+      id.value = Get.arguments["id_ets"]??"";
+    }
+
     print('etablissement :${etablissement}');
     super.onInit();
   }

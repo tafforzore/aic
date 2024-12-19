@@ -12,6 +12,7 @@ class RegisterController extends GetxController {
   TextEditingController password = TextEditingController();
   TextEditingController c_password = TextEditingController();
   RxString errorText = ''.obs;
+  RxBool isLoading = false.obs;
 
   bool champsVerification(){
     if(password.value.text.isEmpty ||
@@ -35,21 +36,31 @@ class RegisterController extends GetxController {
 
   Future<void> createAccount() async{
     bool fieldsIsOk = champsVerification();
+    isLoading.value = true;
     if(fieldsIsOk){
       RegisterRequest registerObject = RegisterRequest(username: username.value.text, email: email.value.text, password: password.value.text);
       LoginVerification loginVerification =  await AuthServices().register(registerObject: registerObject);
 
-      if(loginVerification == LoginVerification.CREATED){
-        Get.offNamed(Routes.HOME);
-      }else if(loginVerification == LoginVerification.WRONG_DATA){}
-      else if(loginVerification == LoginVerification.USER_EXIST){
-        errorText.value = "username existe deja !!";
-      }
-      else{
-        //todo: apiError echec de connexion a api
+      try{
+        if(loginVerification == LoginVerification.CREATED){
+          Get.offNamed(Routes.HOME);
+        }else if(loginVerification == LoginVerification.WRONG_DATA){
+          errorText.value = 'donnee non valide';
+        }
+        else if(loginVerification == LoginVerification.USER_EXIST){
+          errorText.value = "username existe deja !!";
+        }
+        else{
+          //todo: apiError echec de connexion a api
+          errorText.value = "une erreur est survenue !!";
+        }
+      }catch(e){
         errorText.value = "une erreur est survenue !!";
-
       }
+      finally{
+        isLoading.value = false;
+      }
+
     }
 
   }

@@ -7,7 +7,7 @@ class DioClient {
 
   DioClient() : dio = Dio(
       BaseOptions(
-        baseUrl: "${Assets.dev_server_url}:8000",
+        baseUrl: "${Assets.dev_server_url}",
         connectTimeout: const Duration(seconds: 60),
         receiveTimeout: const Duration(seconds: 60)
       )

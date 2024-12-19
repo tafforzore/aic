@@ -10,10 +10,11 @@ class Routes {
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     String refreshToken =
-        await Get.find<EncryptedStorage>().getRefreshToken() ?? "";
+        await Get.find<EncryptedStorage>().getToken() ?? "";
+    Get.find<EncryptedStorage>().removeToken();
     if (refreshToken.isEmpty) {
-      return HOME;
-      // return SPLASH;
+      // return HOME;
+      return SPLASH;
     }
     return HOME;
   }
