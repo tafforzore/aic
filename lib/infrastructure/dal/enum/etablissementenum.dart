@@ -20,3 +20,11 @@ enum ClasseEnum{
   WRONG_DATA,
   SERVER_ERROR
 }
+
+enum StudentEnum{
+  OK,
+  NOT_FOUND,
+  API_ERROR,
+  WRONG_DATA,
+  SERVER_ERROR
+}

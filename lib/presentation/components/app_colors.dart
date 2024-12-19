@@ -9,6 +9,6 @@ class AppColor{
   static Color greyColor = Color.fromARGB(30, 144, 144, 140);
   static Color success = Color.fromARGB(30, 85, 241, 33);
   static Color danger = Color.fromARGB(30, 225, 15, 64);
-
+  static Color blackColor = Color.fromRGBO(0, 0, 0, 1);
 
 }

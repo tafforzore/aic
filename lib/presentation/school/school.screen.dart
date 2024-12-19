@@ -1,6 +1,8 @@
+import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../domain/entities/etablissement.dart';
 import '../../domain/entities/school.dart';
@@ -33,7 +35,19 @@ class SchoolScreen extends GetView<SchoolController> {
                 ),
               ],
             ),
-
+          SliverToBoxAdapter(
+            child: Row(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(left: 10, bottom: 10, top: 5),
+                    child: Text("Mes Etablissements", style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontSize: AppSize.titleSize+7
+                    ),)
+                ),
+              ],
+            ),
+          ),
           Obx(() {
             if (!controller.hide.value) {
               if (controller.schools.isEmpty) {
@@ -42,7 +56,7 @@ class SchoolScreen extends GetView<SchoolController> {
                     child: Text(
                       LocaleKeys.list_school_not_found.tr,
                       style: TextStyle(
-                        color: AppColor.greyColor,
+                        color: AppColor.primaryColor,
                         fontSize: 16,
                       ),
                     ),
@@ -54,7 +68,7 @@ class SchoolScreen extends GetView<SchoolController> {
                         (context, index) {
                       final school = controller.schools[index];
                       return Container(
-                        margin: EdgeInsets.only(top: 8.0),
+                        margin: EdgeInsets.only(top: 5.0),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
                           child: _buildEstablismentItem(school),
@@ -83,6 +97,7 @@ class SchoolScreen extends GetView<SchoolController> {
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // Image.network(
             //   etablissement.logo ?? '',
@@ -92,7 +107,7 @@ class SchoolScreen extends GetView<SchoolController> {
             // ),
             SizedBox(height: 10),
             Text(
-              etablissement.name,
+              'Classe :'+etablissement.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -117,6 +132,7 @@ class SchoolScreen extends GetView<SchoolController> {
             // SizedBox(height: 20),
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -124,9 +140,10 @@ class SchoolScreen extends GetView<SchoolController> {
                   },
                   child: Text("Fermer"),
                 ),
+                SizedBox(width: 15.sp,),
                 ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.STUDENT);
+                    controller.goToNextPage(etablissement);
                   },
                   child: Text("Aller"),
                 ),
@@ -153,48 +170,61 @@ class SchoolScreen extends GetView<SchoolController> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  // Image.network(
-                  //   classe.logo ?? '',
-                  //   height: 100,
-                  //   width: 100,
-                  //   fit: BoxFit.cover,
-                  // ),
-                  Container(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(height: 5),
-                        Text(
-                          classe.name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.grey[800],
-                          ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.school)
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      // Image.network(
+                      //   classe.logo ?? '',
+                      //   height: 100,
+                      //   width: 100,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      Container(width: 20),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(height: 5),
+                            Text(
+                              classe.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            Container(height: 5),
+                            // Text(
+                            //   classe.academicYear ?? '',
+                            //   style: TextStyle(
+                            //     fontSize: 14,
+                            //     color: Colors.grey[500],
+                            //   ),
+                            // ),
+                            // Container(height: 10),
+                            // Text(
+                            //   classe.cachet,
+                            //   maxLines: 2,
+                            //   style: TextStyle(
+                            //     fontSize: 12,
+                            //     color: Colors.grey[700],
+                            //   ),
+                            // ),
+                          ],
                         ),
-                        Container(height: 5),
-                        // Text(
-                        //   classe.academicYear ?? '',
-                        //   style: TextStyle(
-                        //     fontSize: 14,
-                        //     color: Colors.grey[500],
-                        //   ),
-                        // ),
-                        // Container(height: 10),
-                        // Text(
-                        //   classe.cachet,
-                        //   maxLines: 2,
-                        //   style: TextStyle(
-                        //     fontSize: 12,
-                        //     color: Colors.grey[700],
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        child: Icon(Icons.navigate_next_rounded, color: AppColor.primaryColor, size: 20.sp,),
+                      )
+                    ],
                   ),
                 ],
               ),

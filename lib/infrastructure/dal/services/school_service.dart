@@ -15,4 +15,8 @@ class SchoolService{
   Future<ClassEntity> getAllClasseById({required String id}) async {
     return await schoolRepository.getAllClassById(id);
   }
+
+  Future<StudentEntity> getAllStudentByClassById({required String id}) async {
+    return await schoolRepository.getAllStudentByClassById(id);
+  }
 }

@@ -5,6 +5,7 @@ import '../../../domain/entities/etablissement.dart';
 import '../../../domain/entities/school.dart';
 import '../../../infrastructure/dal/enum/etablissementenum.dart';
 import '../../../infrastructure/dal/services/school_service.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class SchoolController extends GetxController {
   //TODO: Implement SchoolController
@@ -19,9 +20,9 @@ class SchoolController extends GetxController {
 
 
   void loadData() async {
-    ClassEntity schoolEntity = await SchoolService().getAllClasseById(id: id.value);
-    if(schoolEntity.classeEnum == SchoolEnum.OK){
-      schools = schoolEntity.classes!;
+    ClassEntity classEntity = await SchoolService().getAllClasseById(id: id.value);
+    if(classEntity.classeEnum == ClasseEnum.OK){
+      schools = classEntity.classes!;
       print('voici mes salle de classe : ${schools}');
     }
     hide.value = false;
@@ -41,6 +42,18 @@ class SchoolController extends GetxController {
 
     print('etablissement :${etablissement}');
     super.onInit();
+  }
+
+  void goToNextPage(Classe classe){
+    Get.back;
+    Get.toNamed(
+        Routes.STUDENT,
+        arguments: {
+          'etablissement':etablissement,
+          'id_ets':id,
+          'classe': classe.name,
+          'id_classe': classe.id,
+        });
   }
 
   @override

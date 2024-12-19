@@ -1,54 +1,20 @@
+import 'package:finalaic/domain/entities/student.dart';
+import 'package:finalaic/domain/entity_response/school_entity.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/entities/etablissement.dart';
+import '../../../infrastructure/dal/enum/etablissementenum.dart';
+import '../../../infrastructure/dal/services/school_service.dart';
 
 class StudentController extends GetxController {
-  List<Etablissement> etablissements = [
-    Etablissement(
-      id: 1,
-      name: "Université de Paris",
-      devise: "Liberté, Égalité, Fraternité",
-      contact: "contact@universite-paris.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null, phone: 'null',
-    ),
-    Etablissement(
-      id: 2,
-      name: "École Polytechnique",
-      devise: "Excellence, Innovation",
-      contact: "contact@polytechnique.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null, phone: '',
-    ),
-    Etablissement(
-      id: 3,
-      name: "Université de Lyon",
-      devise: "Savoir et Partage",
-      contact: "contact@universite-lyon.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null, phone: '',
-    ),
-    Etablissement(
-      id: 4,
-      name: "École des Mines",
-      devise: "Technologie et Futur",
-      contact: "contact@ecole-des-mines.fr",
-      logo: "https://via.placeholder.com/150",
-      academicYear: "2023-2024",
-      cachet: null,
-      signaturePrincipale: null,
-      user: null, phone: '',
-    ),
-  ];
+
+  List<Student> students = [];
+
+
+  RxString etablissement = ''.obs;
+  RxString id = ''.obs;
+  RxString classe = ''.obs;
+  RxString idClasse = ''.obs;
 
 
   RxBool hide = true.obs;
@@ -58,13 +24,33 @@ class StudentController extends GetxController {
   }
 
   void loadData() async {
-    await Future.delayed(Duration(seconds: 5));
+    StudentEntity studentEntity = await SchoolService().getAllStudentByClassById(id: id.value);
+    if(studentEntity.studentEnum == StudentEnum.OK){
+      students = studentEntity.students!;
+      print('voici mes salle de classe : ${students}');
+    }
     hide.value = false;
   }
 
   final count = 0.obs;
   @override
   void onInit() {
+    if(Get.arguments.containsKey("etablissement")){
+      etablissement.value = Get.arguments["etablissement"]??"";
+    }
+
+    if(Get.arguments.containsKey("id_ets")){
+      id.value = Get.arguments["id_ets"]??"";
+    }
+
+    if(Get.arguments.containsKey("classe")){
+      classe.value = Get.arguments["classe"]??"";
+    }
+
+    if(Get.arguments.containsKey("id_classe")){
+      idClasse.value = Get.arguments["id_classe"]??"";
+    }
+
     super.onInit();
   }
 
