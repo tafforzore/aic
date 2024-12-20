@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:encrypt_shared_preferences/provider.dart';
 
+import '../../infrastructure/dal/dtos/user_dto.dart';
+
 class EncryptedStorage{
   final EncryptedSharedPreferences _storage;
   EncryptedStorage._(this._storage);
@@ -37,8 +39,32 @@ class EncryptedStorage{
     bool isOk = await _storage.setString('refresh_token', refreshToken);
     return isOk;
   }
-  Future<bool> setToken(token) async{
-    bool isOk = await _storage.setString('user_token', token);
+
+  Future<bool> setToken(user) async{
+    bool isOk = await _storage.setString('user_token', user);
     return isOk;
   }
+
+  Future<bool> setId(id) async{
+
+    bool isOk = await _storage.setString('id_user', id.toString());
+    return isOk;
+  }
+
+  Future<bool> setEmail(email) async{
+    bool isOk = await _storage.setString('email_user', email);
+    return isOk;
+  }
+
+  Future<String?> getId() async{
+    String? isOk = await _storage.getString('id_user');
+    return isOk;
+  }
+
+  Future<String?> getEmail(email) async{
+    String? isOk = await _storage.getString('email_user');
+    return isOk;
+  }
+
+
 }

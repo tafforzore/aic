@@ -9,14 +9,14 @@ class Routes {
     // TODO: implement method
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    String refreshToken =
-        await Get.find<EncryptedStorage>().getToken() ?? "";
+    String refreshToken = await Get.find<EncryptedStorage>().getToken() ?? "";
     Get.find<EncryptedStorage>().removeToken();
     if (refreshToken.isEmpty) {
       // return HOME;
-      return SPLASH;
+      // return SPLASH;
     }
     return HOME;
+    // return ERROR_PAGE;
   }
 
   static const CARTE = '/carte';
@@ -32,7 +32,8 @@ class Routes {
   static const PROFILE_SCREEN = '/profile-screen';
   static const REGISTER = '/register';
   static const SCHOOL = '/school';
+  static const SEARCH_SCREEN = '/search-screen';
   static const SPLASH = '/splash';
   static const STUDENT = '/student';
-  static const SEARCH_SCREEN = '/search-screen';
+  static const ERROR_PAGE = '/error-page';
 }

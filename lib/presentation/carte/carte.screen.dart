@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 import '../components/app_colors.dart';
@@ -13,9 +15,15 @@ class CarteScreen extends GetView<CarteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            Get.delete<CarteController>();
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: AppColor.whiteColor,)),
         backgroundColor: AppColor.primaryColor,
         title: const Text(
-          "Carte d'Identité",
+          "Carte Scolaire",
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -26,15 +34,22 @@ class CarteScreen extends GetView<CarteController> {
           children: [
             // Section de l'image de profil
             Obx(() {
+              String? imageUrl = controller.student.image_url??'';
+              File? selectedImage = controller.profileImage.value;
+
               return GestureDetector(
-                onTap: controller.pickImage,
+                onTap: () async {
+                  _showImagePicker(context);
+                },
                 child: CircleAvatar(
                   radius: 60,
                   backgroundColor: AppColor.primaryColor.withOpacity(0.2),
-                  backgroundImage: controller.profileImage.value != null
-                      ? FileImage(controller.profileImage.value!)
+                  backgroundImage: selectedImage != null
+                      ? FileImage(selectedImage)
+                      : imageUrl.isNotEmpty
+                      ? NetworkImage(imageUrl)
                       : null,
-                  child: controller.profileImage.value == null
+                  child: selectedImage == null && imageUrl.isEmpty
                       ? Icon(
                     Icons.add_a_photo,
                     color: AppColor.primaryColor,
@@ -44,6 +59,7 @@ class CarteScreen extends GetView<CarteController> {
                 ),
               );
             }),
+
             const SizedBox(height: 20),
             // Carte d'identité
             Container(
@@ -63,16 +79,34 @@ class CarteScreen extends GetView<CarteController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInfoRow("Nom", "Jean Dupont", Icons.person),
+                  _buildInfoRow("Nom", controller.student.firstName, Icons.person),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Numéro d'identité", "123456789", Icons.badge),
+                  _buildInfoRow("Prenom", controller.student.lastName, Icons.person_outline),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Date de naissance", "01 Janvier 1990", Icons.cake),
+                  _buildInfoRow("Matricule", controller.student.matricule, Icons.confirmation_number),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Adresse", "123 Rue Exemple, Paris", Icons.home),
+                  _buildInfoRow("Date de naissance", controller.student.date_of_birth, Icons.calendar_today),
+                  // const SizedBox(height: 16),
+                  // _buildInfoRow("Adresse", controller.student.!, Icons.location_on),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Contact", "+33 123 456 789", Icons.phone),
+                  _buildInfoRow("Sexe", controller.student.sexe ?? "Non défini", Icons.wc),
                 ],
+              ),
+            ),
+            const Spacer(),
+            // Bouton Enregistrer
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+              child: ElevatedButton(
+                onPressed: controller.uploadImage,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primaryColor,
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                child: const Text(
+                  "Enregistrer",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
             ),
           ],
@@ -111,6 +145,35 @@ class CarteScreen extends GetView<CarteController> {
       ],
     );
   }
+
+  void _showImagePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Prendre une photo'),
+                onTap: () {
+                  Get.find<CarteController>().pickImageFromCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Importer depuis la galerie'),
+                onTap: () {
+                  Get.find<CarteController>().pickImageFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
-
-

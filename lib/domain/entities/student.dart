@@ -5,9 +5,9 @@ class Student{
   final String lastName;
   final String date_of_birth;
   final String? sexe;
-  final String? image_url;
+  String? image_url;
   final String? photos;
-  final String? card_file;
+  // final String? card_file;
   int? classe;
 
   Map<String, dynamic> toMap() {
@@ -20,7 +20,7 @@ class Student{
       'sexe': this.sexe,
       'image_url': this.image_url,
       'photos': this.photos,
-      'card_file': this.card_file,
+      // 'card_file': this.card_file,
       'classe': this.classe,
     };
   }
@@ -35,7 +35,7 @@ class Student{
       sexe: map['sexe'] as String,
       image_url: map['image_url'] as String,
       photos: map['photos'] as String,
-      card_file: map['card_file'] as String,
+      // card_file: map['card_file'] as String,
       classe: map['classe'] as int,
     );
   }
@@ -49,7 +49,7 @@ class Student{
     this.sexe,
     this.image_url,
     this.photos,
-    this.card_file,
+    // this.card_file,
     this.classe,
   });
 }

@@ -1,4 +1,5 @@
 export 'package:finalaic/infrastructure/navigation/bindings/controllers/carte.controller.binding.dart'; 
+export 'package:finalaic/infrastructure/navigation/bindings/controllers/error_page.controller.binding.dart'; 
 export 'package:finalaic/infrastructure/navigation/bindings/controllers/etablissement.controller.binding.dart'; 
 export 'package:finalaic/infrastructure/navigation/bindings/controllers/forget_password.controller.binding.dart'; 
 export 'package:finalaic/infrastructure/navigation/bindings/controllers/generate_text.controller.binding.dart'; 

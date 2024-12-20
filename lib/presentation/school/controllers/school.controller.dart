@@ -49,10 +49,10 @@ class SchoolController extends GetxController {
     Get.toNamed(
         Routes.STUDENT,
         arguments: {
-          'etablissement':etablissement,
-          'id_ets':id,
+          'etablissement':etablissement.value,
+          'id_ets':id.value,
           'classe': classe.name,
-          'id_classe': classe.id,
+          'id_classe': classe.id.toString(),
         });
   }
 

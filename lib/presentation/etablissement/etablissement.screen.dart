@@ -5,6 +5,7 @@ import '../../generated/locales.g.dart';
 import '../components/Shimmer.dart';
 import '../components/app_colors.dart';
 import '../components/custom_appbar.dart';
+import '../components/not_found.dart';
 import 'controllers/etablissement.controller.dart';
 
 class EtablissementScreen extends GetView<EtablissementController> {
@@ -33,15 +34,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
             if (!controller.hide.value) {
               if (controller.etablissements.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.list_school_not_found.tr,
-                      style: TextStyle(
-                        color: AppColor.greyColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  child: NotFound(text: LocaleKeys.list_school_not_found.tr,),
                 );
               }else{
                 return SliverList(

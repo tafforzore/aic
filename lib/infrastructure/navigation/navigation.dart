@@ -101,5 +101,10 @@ class Nav {
       page: () => const SearchScreenScreen(),
       binding: SearchScreenControllerBinding(),
     ),
+    GetPage(
+      name: Routes.ERROR_PAGE,
+      page: () => const ErrorPageScreen(),
+      binding: ErrorPageControllerBinding(),
+    ),
   ];
 }

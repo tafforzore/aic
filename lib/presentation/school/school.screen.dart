@@ -11,6 +11,7 @@ import '../../infrastructure/navigation/routes.dart';
 import '../components/Shimmer.dart';
 import '../components/app_colors.dart';
 import '../components/custom_appbar.dart';
+import '../components/not_found.dart';
 import 'controllers/school.controller.dart';
 
 class SchoolScreen extends GetView<SchoolController> {
@@ -40,7 +41,7 @@ class SchoolScreen extends GetView<SchoolController> {
               children: [
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                    child: Text("Mes Etablissements", style: TextStyle(
+                    child: Text("Salles de classes", style: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: AppSize.titleSize+7
                     ),)
@@ -52,15 +53,7 @@ class SchoolScreen extends GetView<SchoolController> {
             if (!controller.hide.value) {
               if (controller.schools.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.list_school_not_found.tr,
-                      style: TextStyle(
-                        color: AppColor.primaryColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  child: NotFound(text: LocaleKeys.list_school_not_found.tr,)
                 );
               } else {
                 return SliverList(

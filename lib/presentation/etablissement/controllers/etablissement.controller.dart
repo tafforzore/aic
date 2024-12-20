@@ -1,3 +1,4 @@
+import 'package:finalaic/datas/local_storage/encrypted_storage.dart';
 import 'package:finalaic/domain/entities/etablissement.dart';
 import 'package:finalaic/infrastructure/dal/services/school_service.dart';
 import 'package:get/get.dart';
@@ -16,12 +17,19 @@ class EtablissementController extends GetxController {
   }
 
   void loadData() async {
-    etablissmentEntity = await SchoolService().getAllEtablissementById();
-    if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
-      etablissements = etablissmentEntity.etablissement;
-      print('voici mes etablissement : ${etablissements}');
+    String? id = await Get.find<EncryptedStorage>().getId();
+    if(id != null){
+      etablissmentEntity = await SchoolService().getAllEtablissementById(id: id);
+      if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
+        etablissements = etablissmentEntity.etablissement;
+        print('voici mes etablissement : ${etablissements}');
+      }else{
+        Get.offNamed(Routes.ERROR_PAGE);
+      }
+      hide.value = false;
+    }else{
+      Get.offNamed(Routes.ERROR_PAGE);
     }
-    hide.value = false;
   }
 
   void goToNextPage(Etablissement etablissment){

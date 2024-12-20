@@ -13,10 +13,6 @@ class cloudinaryManagement{
   String.fromEnvironment('gQxOzRK3xvu8_-vYELISiYXBIPo', defaultValue: '');
   static const String cloudName =
   String.fromEnvironment('drlamjbmr', defaultValue: '');
-// const String folder =
-// String.fromEnvironment('media', defaultValue: '');
-// const String uploadPreset =
-// String.fromEnvironment('CLOUDINARY_UPLOAD_PRESET', defaultValue: '');
 
   final cloudinary = Cloudinary.unsignedConfig(
     cloudName: cloudName,
