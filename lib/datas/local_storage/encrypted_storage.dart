@@ -66,5 +66,9 @@ class EncryptedStorage{
     return isOk;
   }
 
+  Future<void> setRecent(Map<String, dynamic> map) async{
+    await _storage.setMap(map);
+  }
+
 
 }

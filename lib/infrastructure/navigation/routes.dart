@@ -1,7 +1,5 @@
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
-
 import '../../datas/local_storage/encrypted_storage.dart';
 
 class Routes {
@@ -12,7 +10,7 @@ class Routes {
     String refreshToken = await Get.find<EncryptedStorage>().getToken() ?? "";
     Get.find<EncryptedStorage>().removeToken();
     if (refreshToken.isEmpty) {
-      // return HOME;
+      return HOME;
       // return SPLASH;
     }
     return HOME;
