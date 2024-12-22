@@ -20,6 +20,7 @@ class Routes {
   }
 
   static const CARTE = '/carte';
+  static const CHANGE_PASSWORD = '/change-password';
   static const ERROR_PAGE = '/error-page';
   static const ETABLISSEMENT = '/etablissement';
   static const FORGET_PASSWORD = '/forget-password';
@@ -36,5 +37,5 @@ class Routes {
   static const SEARCH_SCREEN = '/search-screen';
   static const SPLASH = '/splash';
   static const STUDENT = '/student';
-  static const CHANGE_PASSWORD = '/change-password';
+  static const NO_INTERNET_CONNEXION = '/no-internet-connexion';
 }

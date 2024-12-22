@@ -1,3 +1,4 @@
+import 'package:finalaic/datas/local_storage/encrypted_storage.dart';
 import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:flutter/material.dart';
 
@@ -120,7 +121,7 @@ class ProfileScreenScreen extends GetView<ProfileScreenController> {
                 ),
                 child: Column(
                   children: [
-                    _buildProfileOption(LocaleKeys.change_language.tr, Icons.language,(){FastCreateCards.changePassword(context);}),
+                    _buildProfileOption(LocaleKeys.change_language.tr, Icons.language,(){FastCreateCards.changeLanguage(context);}),
                   ],
                 ),
               ),
@@ -187,9 +188,12 @@ class ProfileScreenScreen extends GetView<ProfileScreenController> {
                 child: Column(
                   children: [
                     _buildProfileOption(
-                        LocaleKeys.logout.tr, Icons.logout, () {
-                      Get.toNamed(Routes.CHANGE_PASSWORD);
-                    }),
+                        LocaleKeys.logout.tr, Icons.logout,
+                            ()async {
+                              await Get.find<EncryptedStorage>().removeToken();
+                              await Get.find<EncryptedStorage>().removeToken();
+                              Get.offAllNamed(await Routes.initialRoute);
+                          }),
                   ],
                 ),
               ),

@@ -111,5 +111,10 @@ class Nav {
       page: () => const ChangePasswordScreen(),
       binding: ChangePasswordControllerBinding(),
     ),
+    GetPage(
+      name: Routes.NO_INTERNET_CONNEXION,
+      page: () => const NoInternetConnexionScreen(),
+      binding: NoInternetConnexionControllerBinding(),
+    ),
   ];
 }

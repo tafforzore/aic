@@ -10,6 +10,7 @@ import '../components/Shimmer.dart';
 import '../components/app_colors.dart';
 import '../components/app_size.dart';
 import '../components/bottom_sheet.dart';
+import '../components/check_internet_connection.dart';
 import 'controllers/home.controller.dart';
 
 class HomePageScreen extends GetView<HomeController> {
@@ -51,27 +52,29 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.change.value) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 5.h),
-                _buildWelcomeSection(),
-                SizedBox(height: 3.h),
-                ActionPage.buildSearchBar(),
-                SizedBox(height: 2.h),
-                ActionPage.buildGridActions(),
-                SizedBox(height: 2.h),
-                _buildRecentFilesHeader(),
-                _buildRecentFilesList(),
-              ],
+        return CheckInternetConnection(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5.h),
+                  _buildWelcomeSection(),
+                  SizedBox(height: 3.h),
+                  ActionPage.buildSearchBar(),
+                  SizedBox(height: 2.h),
+                  ActionPage.buildGridActions(),
+                  SizedBox(height: 2.h),
+                  _buildRecentFilesHeader(),
+                  _buildRecentFilesList(),
+                ],
+              ),
             ),
+            floatingActionButton: ActionPage.buildFloatingActionButtons(context),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            bottomNavigationBar: HomePageScreen().buildBottomNavigationBar(),
           ),
-          floatingActionButton: ActionPage.buildFloatingActionButtons(context),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          bottomNavigationBar: HomePageScreen().buildBottomNavigationBar(),
         );
       } else {
         return  Scaffold(body: ShimmerTile());

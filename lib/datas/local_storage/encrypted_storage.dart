@@ -70,5 +70,24 @@ class EncryptedStorage{
     await _storage.setMap(map);
   }
 
+  Future<void> setParameter(List<String> parameter) async{
+      await _storage.setStringList('parameter', parameter);
 
+  }
+
+  Future<List> getParameter() async{
+    List<String>? parameter = await _storage.getStringList('parameter');
+    if( parameter==null ){
+      print('je suis ');
+      parameter = ['fr','true'];
+      return parameter;
+    }else if(parameter==[]){
+      print('je suis ');
+      parameter = ['fr','true'];
+      return parameter;
+    }else{
+      return parameter;
+    }
+
+  }
 }

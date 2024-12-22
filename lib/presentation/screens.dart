@@ -7,6 +7,7 @@ export 'package:finalaic/presentation/generate_text/generate_text.screen.dart';
 export 'package:finalaic/presentation/home/home.screen.dart';
 export 'package:finalaic/presentation/introduction_page/introduction_page.screen.dart';
 export 'package:finalaic/presentation/login/login.screen.dart';
+export 'package:finalaic/presentation/no_internet_connexion/no_internet_connexion.screen.dart';
 export 'package:finalaic/presentation/pin_code_page/pin_code_page.screen.dart';
 export 'package:finalaic/presentation/profile_scree/profile_scree.screen.dart';
 export 'package:finalaic/presentation/profile_screen/profile_screen.screen.dart';

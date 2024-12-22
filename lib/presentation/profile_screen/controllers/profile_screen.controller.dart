@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:finalaic/presentation/components/controller/fast_create_card_controller.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -32,6 +33,7 @@ class ProfileScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
   }
 
   @override
