@@ -1,5 +1,6 @@
 export 'package:finalaic/presentation/Error_page/error_page.screen.dart';
 export 'package:finalaic/presentation/carte/carte.screen.dart';
+export 'package:finalaic/presentation/change_password/change_password.screen.dart';
 export 'package:finalaic/presentation/etablissement/etablissement.screen.dart';
 export 'package:finalaic/presentation/forget_password/forget_password.screen.dart';
 export 'package:finalaic/presentation/generate_text/generate_text.screen.dart';

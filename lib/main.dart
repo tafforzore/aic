@@ -62,7 +62,7 @@ class Main extends StatelessWidget with WidgetsBindingObserver {
           title: 'AIC',
           initialRoute: initialRoute,
           translationsKeys: AppTranslation.translations,
-          locale: Locale('fr'),
+          locale: Locale('de'),
           fallbackLocale: Locale('en'),
           getPages: Nav.routes,
           theme:  ThemeData(

@@ -22,7 +22,7 @@ class StudentScreen extends GetView<StudentController> {
           Get.back;
           Get.offNamed(Routes.SCHOOL);
         }, icon: Icon(Icons.arrow_back, color: AppColor.whiteColor,weight: 10,)),
-        title: Text('Listes des '+LocaleKeys.student.tr,
+        title: Text('${LocaleKeys.list_of.tr} ${LocaleKeys.student.tr}',
           style: TextStyle(
           color: AppColor.whiteColor,
           fontWeight: FontWeight.bold
@@ -96,7 +96,7 @@ class StudentScreen extends GetView<StudentController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Nom :' + student.firstName,
+                    '${LocaleKeys.first_name.tr} :${student.firstName}',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class StudentScreen extends GetView<StudentController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Prenom :' + student.lastName,
+                    '${LocaleKeys.last_name.tr} :${student.lastName}',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -113,7 +113,7 @@ class StudentScreen extends GetView<StudentController> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Matricule :' + student.matricule,
+                    '${LocaleKeys.identification.tr} :${student.matricule}',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[600],
@@ -129,7 +129,7 @@ class StudentScreen extends GetView<StudentController> {
                           Get.back();
                         },
                         child: Text(
-                          "Annuler",
+                          LocaleKeys.cancel.tr,
                           style: TextStyle(color: AppColor.primaryColor),
                         ),
                       ),
@@ -138,7 +138,7 @@ class StudentScreen extends GetView<StudentController> {
                           controller.goToNextPage(student);
                         },
                         child: Text(
-                          "Prendre Photos",
+                          LocaleKeys.take_photo.tr,
                           style: TextStyle(color: AppColor.primaryColor),
                         ),
                       ),
@@ -182,7 +182,7 @@ class StudentScreen extends GetView<StudentController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Nom :' + student.firstName,
+                      '${LocaleKeys.name.tr} :${student.firstName}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -191,7 +191,7 @@ class StudentScreen extends GetView<StudentController> {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'Prenom :' + (student.lastName ?? ''),
+                      '${LocaleKeys.last_name} :${student.lastName ?? ''}',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[500],
@@ -199,7 +199,7 @@ class StudentScreen extends GetView<StudentController> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Matricule :' + student.matricule,
+                      '${LocaleKeys.identification.tr} :${student.matricule}',
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: 12,

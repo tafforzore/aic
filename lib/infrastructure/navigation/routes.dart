@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
+
 import '../../datas/local_storage/encrypted_storage.dart';
 
 class Routes {
@@ -18,6 +20,7 @@ class Routes {
   }
 
   static const CARTE = '/carte';
+  static const ERROR_PAGE = '/error-page';
   static const ETABLISSEMENT = '/etablissement';
   static const FORGET_PASSWORD = '/forget-password';
   static const GENERATE_TEXT = '/generate-text';
@@ -33,5 +36,5 @@ class Routes {
   static const SEARCH_SCREEN = '/search-screen';
   static const SPLASH = '/splash';
   static const STUDENT = '/student';
-  static const ERROR_PAGE = '/error-page';
+  static const CHANGE_PASSWORD = '/change-password';
 }

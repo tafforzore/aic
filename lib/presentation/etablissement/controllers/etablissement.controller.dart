@@ -18,17 +18,17 @@ class EtablissementController extends GetxController {
 
   void loadData() async {
     String? id = await Get.find<EncryptedStorage>().getId();
-    if(id != null){
+    if(id!.isNotEmpty){
       etablissmentEntity = await SchoolService().getAllEtablissementById(id: id);
       if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
         etablissements = etablissmentEntity.etablissement;
         print('voici mes etablissement : ${etablissements}');
       }else{
-        Get.offNamed(Routes.ERROR_PAGE);
+        Get.toNamed(Routes.ERROR_PAGE);
       }
       hide.value = false;
     }else{
-      Get.offNamed(Routes.ERROR_PAGE);
+      Get.toNamed(Routes.ERROR_PAGE);
     }
   }
 

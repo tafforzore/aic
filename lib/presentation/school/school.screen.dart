@@ -30,7 +30,7 @@ class SchoolScreen extends GetView<SchoolController> {
                   icon: Icon(Icons.notifications, color: Colors.white),
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Notifications clicked")),
+                      SnackBar(content: Text(LocaleKeys.notification_press.tr)),
                     );
                   },
                 ),
@@ -41,7 +41,7 @@ class SchoolScreen extends GetView<SchoolController> {
               children: [
                 Container(
                     margin: EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                    child: Text("Salles de classes", style: TextStyle(
+                    child: Text(LocaleKeys.classrooms.tr, style: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: AppSize.titleSize+7
                     ),)
@@ -100,7 +100,7 @@ class SchoolScreen extends GetView<SchoolController> {
             // ),
             SizedBox(height: 10),
             Text(
-              'Classe :'+etablissement.name,
+              '${LocaleKeys.classe.tr} :${etablissement.name}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -131,14 +131,14 @@ class SchoolScreen extends GetView<SchoolController> {
                   onPressed: () {
                     Get.back();
                   },
-                  child: Text("Fermer"),
+                  child: Text(LocaleKeys.close.tr),
                 ),
                 SizedBox(width: 15.sp,),
                 ElevatedButton(
                   onPressed: () {
                     controller.goToNextPage(etablissement);
                   },
-                  child: Text("Aller"),
+                  child: Text(LocaleKeys.go_to.tr),
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,8 +23,8 @@ class CarteScreen extends GetView<CarteController> {
           },
           icon: Icon(Icons.arrow_back, color: AppColor.whiteColor,)),
         backgroundColor: AppColor.primaryColor,
-        title: const Text(
-          "Carte Scolaire",
+        title: Text(
+          LocaleKeys.school_card.tr,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -79,17 +80,17 @@ class CarteScreen extends GetView<CarteController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildInfoRow("Nom", controller.student.firstName, Icons.person),
+                  _buildInfoRow(LocaleKeys.first_name.tr, controller.student.firstName, Icons.person),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Prenom", controller.student.lastName, Icons.person_outline),
+                  _buildInfoRow(LocaleKeys.last_name.tr, controller.student.lastName, Icons.person_outline),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Matricule", controller.student.matricule, Icons.confirmation_number),
+                  _buildInfoRow(LocaleKeys.identification.tr, controller.student.matricule, Icons.confirmation_number),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Date de naissance", controller.student.date_of_birth, Icons.calendar_today),
+                  _buildInfoRow(LocaleKeys.birth_date.tr, controller.student.date_of_birth, Icons.calendar_today),
                   // const SizedBox(height: 16),
                   // _buildInfoRow("Adresse", controller.student.!, Icons.location_on),
                   const SizedBox(height: 16),
-                  _buildInfoRow("Sexe", controller.student.sexe ?? "Non défini", Icons.wc),
+                  _buildInfoRow(LocaleKeys.sex.tr, controller.student.sexe ?? LocaleKeys.undefined.tr, Icons.wc),
                 ],
               ),
             ),
@@ -103,8 +104,8 @@ class CarteScreen extends GetView<CarteController> {
                   backgroundColor: AppColor.primaryColor,
                   minimumSize: Size(double.infinity, 50),
                 ),
-                child: const Text(
-                  "Enregistrer",
+                child: Text(
+                  LocaleKeys.save.tr,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
@@ -156,7 +157,7 @@ class CarteScreen extends GetView<CarteController> {
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: const Text('Prendre une photo'),
+                title: Text(LocaleKeys.take_photo.tr),
                 onTap: () {
                   Get.find<CarteController>().pickImageFromCamera();
                   Navigator.of(context).pop();
@@ -164,7 +165,7 @@ class CarteScreen extends GetView<CarteController> {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Importer depuis la galerie'),
+                title:  Text(LocaleKeys.import_from_gallery.tr),
                 onTap: () {
                   Get.find<CarteController>().pickImageFromGallery();
                   Navigator.of(context).pop();

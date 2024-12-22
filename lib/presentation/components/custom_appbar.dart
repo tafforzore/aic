@@ -52,15 +52,7 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
       actions: actions,
-      leading: IconButton(
-        onPressed: (){
-          Get.back();
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: AppColor.whiteColor,
-        ),
-      ),
+     iconTheme: IconThemeData(color: AppColor.whiteColor,),
       elevation: 6,
     );
   }

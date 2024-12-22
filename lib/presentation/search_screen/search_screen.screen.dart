@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import '../../domain/entities/etablissement.dart';
 import '../../infrastructure/navigation/routes.dart';
 import '../components/app_colors.dart';
+import '../components/bottom_sheet.dart';
 import 'controllers/search_screen.controller.dart';
 
 class SearchScreenScreen extends GetView<SearchScreenController> {
@@ -18,13 +20,16 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            const SizedBox(
+              height: 25,
+            ),
             Row(
-              children: [ Text("Mes cartes ", style: TextStyle(
+              children: [ Text(LocaleKeys.my_cards.tr, style: TextStyle(
                   fontSize: AppSize.titleSize,
                   fontWeight: FontWeight.bold
               ),)],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -43,31 +48,36 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                 items: controller.imageUrls.map((imageUrl) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                            image: NetworkImage(imageUrl),
-                            fit: BoxFit.cover,
+                      return InkWell(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: DecorationImage(
+                              image: NetworkImage(imageUrl),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                            color: Colors.black.withOpacity(0.5),
-                            child: Text(
-                              'Image ${controller.imageUrls.indexOf(imageUrl) + 1}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                              color: Colors.black.withOpacity(0.5),
+                              child: Text(
+                                '${LocaleKeys.image.tr} ${controller.imageUrls.indexOf(imageUrl) + 1}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                        onTap: (){
+                          FastCreateCards.fastCreateCardWithCardType(context, imageUrl);
+                        },
                       );
                     },
                   );
@@ -80,7 +90,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("cartes Recents ", style: TextStyle(
+                Text(LocaleKeys.recent_cards.tr, style: TextStyle(
                 fontSize: AppSize.titleSize,
                 fontWeight: FontWeight.bold
               ),),
@@ -129,6 +139,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            etablissement.logo!.isNotEmpty?
             Image.network(
               etablissement.logo??'',
               height: 160,
@@ -142,7 +153,22 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                   child: Icon(Icons.broken_image, color: Colors.grey, size: 50),
                 ),
               ),
-            ),
+            ):
+            Image.asset(
+              'assets/images/default_school.png',
+              height: 160,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
+                height: 160,
+                width: double.infinity,
+                color: Colors.grey[300],
+                child: Center(
+                  child: Icon(Icons.broken_image, color: Colors.grey, size: 50),
+                ),
+              ),
+            )
+            ,
             Container(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -159,7 +185,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Année académique: ${etablissement.academicYear}",
+                    "${LocaleKeys.academic_year.tr}: ${etablissement.academicYear}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -167,7 +193,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "Devise: ${etablissement.devise}",
+                    "${LocaleKeys.devise.tr}: ${etablissement.devise}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[600],
@@ -182,8 +208,8 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                         onPressed: () {
                           // Action for SHARE
                         },
-                        child: const Text(
-                          "Supprimer",
+                        child:  Text(
+                          LocaleKeys.delete.tr,
                           style: TextStyle(color: Colors.blueAccent),
                         ),
                       ),
@@ -191,8 +217,8 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                         onPressed: () {
                           Get.toNamed(Routes.CARTE);
                         },
-                        child: const Text(
-                          "Aller",
+                        child:  Text(
+                          LocaleKeys.go.tr,
                           style: TextStyle(color: Colors.blueAccent),
                         ),
                       ),
@@ -224,9 +250,15 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
               padding: const EdgeInsets.all(15),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
+                  etablissement.logo!.isNotEmpty?
                   Image.network(
                     etablissement.logo ?? '',
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ):Image.asset(
+                   'assets/images/default_school.png',
                     height: 100,
                     width: 100,
                     fit: BoxFit.cover,

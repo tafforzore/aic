@@ -107,6 +107,20 @@ class LocaleKeys {
   static const last_name = 'last_name';
   static const registration_number = 'registration_number';
   static const take_photos = 'take_photos';
+  static const error = 'error';
+  static const error_survened = 'error_survened';
+  static const retry = 'retry';
+  static const home = 'home';
+  static const adress = 'adress';
+  static const password_confirm = 'password_confirm';
+  static const profile_setting = 'profile_setting';
+  static const profile_setting_information = 'profile_setting_information';
+  static const personal_information = 'personal_information';
+  static const logout = 'logout';
+  static const sex = 'sex';
+  static const undefined = 'undefined';
+  static const change_language = 'change_language';
+  static const change_password = 'change_password';
 }
 
 class Locales {
@@ -588,6 +602,20 @@ class Locales {
     'first_name': 'prenom',
     'last_name': 'nom',
     'registration_number': 'matricule',
+    'error': 'Erreur',
+    'error_survened': 'Une erreur est survenue',
+    'retry': 'retry',
+    'home': 'Accueil',
+    'adress': 'Adresse',
+    'password_confirm': 'confirmer le mots de passe',
+    'profile_setting': 'Parametre de profil',
+    'profile_setting_information': 'Information de profils',
+    'personal_information': 'Information de personnels',
+    'logout': 'deconnexion',
+    'sex': 'Sexe',
+    'undefined': 'Non defini',
+    'change_language': 'changer la langue',
+    'change_password': 'Changer le mots de passe',
     'take_photos': 'prendre photos',
   };
   static const ru = {

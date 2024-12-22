@@ -23,7 +23,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                 icon: Icon(Icons.notifications, color: Colors.white),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Notifications clicked")),
+                    SnackBar(content: Text(LocaleKeys.notification_press.tr)),
                   );
                 },
               ),
@@ -107,7 +107,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Année académique: ${etablissement.academicYear}",
+                    LocaleKeys.academic_year.tr+": ${etablissement.academicYear}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -115,7 +115,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "Devise: ${etablissement.devise}",
+                    "${LocaleKeys.devise}: ${etablissement.devise}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[600],
@@ -130,8 +130,8 @@ class EtablissementScreen extends GetView<EtablissementController> {
                         onPressed: () {
                           Get.back();
                         },
-                        child: const Text(
-                          "Supprimer",
+                        child:  Text(
+                          LocaleKeys.delete.tr,
                           style: TextStyle(color: Colors.blueAccent),
                         ),
                       ),
@@ -140,8 +140,8 @@ class EtablissementScreen extends GetView<EtablissementController> {
                           Get.back();
                           controller.goToNextPage(etablissement);
                         },
-                        child: const Text(
-                          "Aller",
+                        child:  Text(
+                          LocaleKeys.go_to.tr,
                           style: TextStyle(color: Colors.blueAccent),
                         ),
                       ),

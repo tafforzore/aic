@@ -106,5 +106,10 @@ class Nav {
       page: () => const ErrorPageScreen(),
       binding: ErrorPageControllerBinding(),
     ),
+    GetPage(
+      name: Routes.CHANGE_PASSWORD,
+      page: () => const ChangePasswordScreen(),
+      binding: ChangePasswordControllerBinding(),
+    ),
   ];
 }

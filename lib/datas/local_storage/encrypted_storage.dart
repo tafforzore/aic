@@ -58,7 +58,7 @@ class EncryptedStorage{
 
   Future<String?> getId() async{
     String? isOk = await _storage.getString('id_user');
-    return isOk;
+    return isOk??'';
   }
 
   Future<String?> getEmail(email) async{

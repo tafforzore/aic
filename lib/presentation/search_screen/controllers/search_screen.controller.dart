@@ -22,7 +22,8 @@ class SearchScreenController extends GetxController {
       name: "Université de Paris",
       devise: "Liberté, Égalité, Fraternité",
       contact: "contact@universite-paris.fr",
-      logo: "https://via.placeholder.com/150",
+      logo: "",
+
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
@@ -33,7 +34,7 @@ class SearchScreenController extends GetxController {
       name: "École Polytechnique",
       devise: "Excellence, Innovation",
       contact: "contact@polytechnique.fr",
-      logo: "https://via.placeholder.com/150",
+      logo: "",
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
@@ -44,7 +45,8 @@ class SearchScreenController extends GetxController {
       name: "Université de Lyon",
       devise: "Savoir et Partage",
       contact: "contact@universite-lyon.fr",
-      logo: "https://via.placeholder.com/150",
+      logo: "",
+
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
@@ -55,7 +57,8 @@ class SearchScreenController extends GetxController {
       name: "École des Mines",
       devise: "Technologie et Futur",
       contact: "contact@ecole-des-mines.fr",
-      logo: "https://via.placeholder.com/150",
+      logo: "",
+
       academicYear: "2023-2024",
       cachet: null,
       signaturePrincipale: null,
@@ -63,7 +66,7 @@ class SearchScreenController extends GetxController {
     ),
   ];
 
-
+//taille 150
 
 
   final count = 0.obs;

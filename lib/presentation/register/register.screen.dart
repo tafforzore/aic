@@ -1,3 +1,4 @@
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -64,7 +65,7 @@ class RegisterScreen extends GetView<RegisterController> {
                       SizedBox(height: AppSize.titleSize),
 
                       Text(
-                        "S'inscire",
+                        LocaleKeys.register.tr,
                         style: TextStyle(fontSize: AppSize.titleSize,
                             fontWeight: FontWeight.bold,
                             color: AppColor.primaryColor),
@@ -82,7 +83,7 @@ class RegisterScreen extends GetView<RegisterController> {
                       TextField(
                         controller: controller.username,
                         decoration: InputDecoration(
-                          labelText: "Username",
+                          labelText: LocaleKeys.username.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               gapPadding: 10),
@@ -107,7 +108,7 @@ class RegisterScreen extends GetView<RegisterController> {
                         obscureText: true,
                         controller: controller.password,
                         decoration: InputDecoration(
-                          labelText: "Password",
+                          labelText: LocaleKeys.password.tr,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               gapPadding: 10),
@@ -119,7 +120,7 @@ class RegisterScreen extends GetView<RegisterController> {
                           obscureText: true,
                           controller: controller.c_password,
                           decoration: InputDecoration(
-                            labelText: "Confirm Password",
+                            labelText: LocaleKeys.password_confirm.tr,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 gapPadding: 10),
@@ -134,7 +135,7 @@ class RegisterScreen extends GetView<RegisterController> {
                             onPressed: () {
                               Get.offNamed(Routes.LOGIN);
                             },
-                            child: Text("Connexion",
+                            child: Text(LocaleKeys.login.tr,
                               style: TextStyle(color: AppColor.primaryColor),),
                           ),
                         ],
@@ -155,7 +156,7 @@ class RegisterScreen extends GetView<RegisterController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text("S'inscrire",
+                            Text(LocaleKeys.register.tr,
                               style: TextStyle(color: AppColor.primaryColor
                                   , fontSize: AppSize.titleSize),),
                           ],

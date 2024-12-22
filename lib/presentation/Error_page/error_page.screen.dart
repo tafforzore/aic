@@ -1,9 +1,11 @@
+import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:finalaic/presentation/components/not_found.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/locales.g.dart';
 import '../../infrastructure/navigation/routes.dart';
 import '../components/app_colors.dart';
 import '../components/custon_button.dart';
@@ -19,7 +21,10 @@ class ErrorPageScreen extends GetView<ErrorPageController> {
       appBar: AppBar(
           backgroundColor: AppColor.primaryColor,
           centerTitle: true,
-          title: Text('Erreur', style: TextStyle(
+          leading: IconButton(onPressed: (){
+            Get.back();
+          }, icon: Icon(Icons.arrow_back, color: AppColor.whiteColor, size: 20.sp,)),
+          title: Text(LocaleKeys.error.tr, style: TextStyle(
               color: AppColor.whiteColor,
               fontWeight: FontWeight.bold
           ),
@@ -48,7 +53,7 @@ class ErrorPageScreen extends GetView<ErrorPageController> {
             Container(
               width: 70.w,
               child: Text(
-                "Une Erreur est Survenue",textAlign: TextAlign.center,
+                LocaleKeys.error_survened.tr,textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColor.primaryColor,
                   fontWeight: FontWeight.bold,
@@ -59,7 +64,7 @@ class ErrorPageScreen extends GetView<ErrorPageController> {
             SizedBox(height: 50.sp,),
             SizedBox(
                 width: 50.w,
-                child: CustomButton(text: 'reesayer', onPressed: (){Get.back();},))
+                child: CustomButton(text: LocaleKeys.retry.tr, onPressed: (){Get.back();},))
           ],
         ),
       )
