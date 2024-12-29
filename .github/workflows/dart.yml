@@ -27,7 +27,7 @@ jobs:
       - name: Build Docker Image
         run: |
           ls
-          docker build -f ../../Dockerfile -t flutter_docker .
+          docker build -f Dockerfile -t flutter_docker .
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
