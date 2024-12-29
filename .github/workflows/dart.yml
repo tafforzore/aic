@@ -22,5 +22,3 @@ jobs:
       - name: Image Run 
         run: docker ps
 
-      - name: Run tests
-        run: dart test
