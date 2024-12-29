@@ -1,3 +1,4 @@
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ class ProfileScreen extends GetView<HomeController>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("profile"),
+        child: Text(LocaleKeys.profile.tr),
       ),
     );
   }

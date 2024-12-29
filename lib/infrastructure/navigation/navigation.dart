@@ -101,5 +101,20 @@ class Nav {
       page: () => const SearchScreenScreen(),
       binding: SearchScreenControllerBinding(),
     ),
+    GetPage(
+      name: Routes.ERROR_PAGE,
+      page: () => const ErrorPageScreen(),
+      binding: ErrorPageControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.CHANGE_PASSWORD,
+      page: () => const ChangePasswordScreen(),
+      binding: ChangePasswordControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.NO_INTERNET_CONNEXION,
+      page: () => const NoInternetConnexionScreen(),
+      binding: NoInternetConnexionControllerBinding(),
+    ),
   ];
 }

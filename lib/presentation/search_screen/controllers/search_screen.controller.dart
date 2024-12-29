@@ -18,31 +18,55 @@ class SearchScreenController extends GetxController {
 
   List<Etablissement> etablissements = [
     Etablissement(
-      "Université de Paris",
-      "2023-2024",
-      "Liberté, Égalité, Fraternité",
-      "https://via.placeholder.com/150",
+      id: 1,
+      name: "Université de Paris",
+      devise: "Liberté, Égalité, Fraternité",
+      contact: "contact@universite-paris.fr",
+      logo: "",
+
+      academicYear: "2023-2024",
+      cachet: null,
+      signaturePrincipale: null,
+      user: null, phone: 'null',
     ),
     Etablissement(
-      "École Polytechnique",
-      "2023-2024",
-      "Excellence, Innovation",
-      "https://via.placeholder.com/150",
+      id: 2,
+      name: "École Polytechnique",
+      devise: "Excellence, Innovation",
+      contact: "contact@polytechnique.fr",
+      logo: "",
+      academicYear: "2023-2024",
+      cachet: null,
+      signaturePrincipale: null,
+      user: null, phone: '',
     ),
     Etablissement(
-      "Université de Lyon",
-      "2023-2024",
-      "Savoir et Partage",
-      "https://via.placeholder.com/150",
+      id: 3,
+      name: "Université de Lyon",
+      devise: "Savoir et Partage",
+      contact: "contact@universite-lyon.fr",
+      logo: "",
+
+      academicYear: "2023-2024",
+      cachet: null,
+      signaturePrincipale: null,
+      user: null, phone: '',
     ),
     Etablissement(
-      "École des Mines",
-      "2023-2024",
-      "Technologie et Futur",
-      "https://via.placeholder.com/150",
+      id: 4,
+      name: "École des Mines",
+      devise: "Technologie et Futur",
+      contact: "contact@ecole-des-mines.fr",
+      logo: "",
+
+      academicYear: "2023-2024",
+      cachet: null,
+      signaturePrincipale: null,
+      user: null, phone: '',
     ),
   ];
 
+//taille 150
 
 
   final count = 0.obs;

@@ -1,3 +1,4 @@
+import 'package:finalaic/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -68,12 +69,12 @@ class _UserIdentityCardState extends State<UserIdentityCard> {
             ),
             const SizedBox(height: 20),
             // User Information
-            const Text(
-              "Name: John Doe",
+            Text(
+              LocaleKeys.name.tr+": John Doe",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              "ID: 12345678",
+             Text(
+              LocaleKeys.id.tr+": 12345678",
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
             const SizedBox(height: 20),
@@ -87,7 +88,7 @@ class _UserIdentityCardState extends State<UserIdentityCard> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  _isCopied ? "Copied!" : "Copy Code",
+                  _isCopied ? LocaleKeys.copied_text.tr : LocaleKeys.copy_text.tr,
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),

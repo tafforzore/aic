@@ -104,8 +104,8 @@ class GenerateTextScreen extends GetView<GenerateTextController> {
                 ),
                 label: Text(
                   controller.isTextCopied.value
-                      ? "Texte copié"
-                      : "Copier le texte",
+                      ? LocaleKeys.copied_text.tr
+                      : LocaleKeys.copy_text.tr,
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primaryColor,

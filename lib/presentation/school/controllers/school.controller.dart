@@ -1,52 +1,59 @@
+import 'package:finalaic/domain/entity_response/school_entity.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/entities/etablissement.dart';
+import '../../../domain/entities/school.dart';
+import '../../../infrastructure/dal/enum/etablissementenum.dart';
+import '../../../infrastructure/dal/services/school_service.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class SchoolController extends GetxController {
   //TODO: Implement SchoolController
+  RxString etablissement = ''.obs;
+  RxString id = ''.obs;
 
-  List<Etablissement> etablissements = [
-    Etablissement(
-      "Université de Paris",
-      "2023-2024",
-      "Liberté, Égalité, Fraternité",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "École Polytechnique",
-      "2023-2024",
-      "Excellence, Innovation",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "Université de Lyon",
-      "2023-2024",
-      "Savoir et Partage",
-      "https://via.placeholder.com/150",
-    ),
-    Etablissement(
-      "École des Mines",
-      "2023-2024",
-      "Technologie et Futur",
-      "https://via.placeholder.com/150",
-    ),
-  ];
-
+  List<Classe> schools = [];
   RxBool hide = true.obs;
-
-
   viewDetails(Etablissement etablissements){
   }
 
+
+
   void loadData() async {
-    await Future.delayed(Duration(seconds: 5));
+    ClassEntity classEntity = await SchoolService().getAllClasseById(id: id.value);
+    if(classEntity.classeEnum == ClasseEnum.OK){
+      schools = classEntity.classes!;
+      print('voici mes salle de classe : ${schools}');
+    }
     hide.value = false;
   }
 
   final count = 0.obs;
   @override
   void onInit() {
+    print('je suis initialiser');
+    if(Get.arguments.containsKey("etablissement")){
+      etablissement.value = Get.arguments["etablissement"]??"";
+    }
+
+    if(Get.arguments.containsKey("id_ets")){
+      id.value = Get.arguments["id_ets"]??"";
+    }
+
+    print('etablissement :${etablissement}');
     super.onInit();
+  }
+
+  void goToNextPage(Classe classe){
+    Get.back;
+    Get.toNamed(
+        Routes.STUDENT,
+        arguments: {
+          'etablissement':etablissement.value,
+          'id_ets':id.value,
+          'classe': classe.name,
+          'id_classe': classe.id.toString(),
+        });
   }
 
   @override

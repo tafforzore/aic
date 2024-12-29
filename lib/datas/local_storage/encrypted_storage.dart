@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:encrypt_shared_preferences/provider.dart';
 
+import '../../infrastructure/dal/dtos/user_dto.dart';
+
 class EncryptedStorage{
   final EncryptedSharedPreferences _storage;
   EncryptedStorage._(this._storage);
@@ -24,6 +26,11 @@ class EncryptedStorage{
     String? token = await _storage.getString('user_token')??"";
     return token;
   }
+
+  Future<bool> removeToken() async{
+    bool token = await _storage.remove('user_token');
+    return token;
+  }
   Future<String> getRefreshToken() async{
     String? refreshToken = await _storage.getString('refresh_token')??"";
     return refreshToken;
@@ -32,8 +39,55 @@ class EncryptedStorage{
     bool isOk = await _storage.setString('refresh_token', refreshToken);
     return isOk;
   }
-  Future<bool> setToken(token) async{
-    bool isOk = await _storage.setString('user_token', token);
+
+  Future<bool> setToken(user) async{
+    bool isOk = await _storage.setString('user_token', user);
     return isOk;
+  }
+
+  Future<bool> setId(id) async{
+
+    bool isOk = await _storage.setString('id_user', id.toString());
+    return isOk;
+  }
+
+  Future<bool> setEmail(email) async{
+    bool isOk = await _storage.setString('email_user', email);
+    return isOk;
+  }
+
+  Future<String?> getId() async{
+    String? isOk = await _storage.getString('id_user');
+    return isOk??'';
+  }
+
+  Future<String?> getEmail(email) async{
+    String? isOk = await _storage.getString('email_user');
+    return isOk;
+  }
+
+  Future<void> setRecent(Map<String, dynamic> map) async{
+    await _storage.setMap(map);
+  }
+
+  Future<void> setParameter(List<String> parameter) async{
+      await _storage.setStringList('parameter', parameter);
+
+  }
+
+  Future<List> getParameter() async{
+    List<String>? parameter = await _storage.getStringList('parameter');
+    if( parameter==null ){
+      print('je suis ');
+      parameter = ['fr','true'];
+      return parameter;
+    }else if(parameter==[]){
+      print('je suis ');
+      parameter = ['fr','true'];
+      return parameter;
+    }else{
+      return parameter;
+    }
+
   }
 }

@@ -9,13 +9,14 @@ class JwtInterceptor extends Interceptor {
 
   @override
   void onResponse(response, ResponseInterceptorHandler handler) async{
+    print("reponse ${response?.statusCode} ${response?.data}");
     super.onResponse(response, handler);
   }
 
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    print("error ${err.response?.data}");
+    print("error ${err.response?.statusCode} ${err.response?.data}");
     return handler.next(err);
   }
 }

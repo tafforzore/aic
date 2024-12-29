@@ -1,81 +1,61 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import '../../domain/entities/etablissement.dart';
+import 'package:sizer/sizer.dart';
+import '../../domain/entities/student.dart';
 import '../../generated/locales.g.dart';
 import '../../infrastructure/navigation/routes.dart';
 import '../components/Shimmer.dart';
 import '../components/app_colors.dart';
 import '../components/custom_appbar.dart';
+import '../components/not_found.dart';
 import 'controllers/student.controller.dart';
 
 class StudentScreen extends GetView<StudentController> {
   const StudentScreen({super.key});
 
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          CustomAppBar(
-            title: LocaleKeys.student.tr,
-            backgroundImageUrl: "https://via.placeholder.com/800x400",
-            actions: [
-              IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Notifications clicked")),
-                  );
-                },
-              ),
-            ],
-          ),
-
-          Obx(() {
-            if (!controller.hide.value) {
-              if (controller.etablissements.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.list_school_not_found.tr,
-                      style: TextStyle(
-                        color: AppColor.greyColor,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                );
-              }else{
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                      final establishment = controller.etablissements[index];
-                      return Container(
-                        margin: EdgeInsets.only(top: 8.0),
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                          child: _buildEstablismentItem(establishment),
-                        ),
-                      );
-                    },
-                    childCount: controller.etablissements.length,
-                  ),
-                );
-              }
-
-            } else {
-              return ShimmerEtablissement();
-            }
-          }),
-        ],
+      appBar: AppBar(
+        backgroundColor: AppColor.primaryColor,
+        leading: IconButton(onPressed: (){
+          Get.back;
+          Get.offNamed(Routes.SCHOOL);
+        }, icon: Icon(Icons.arrow_back, color: AppColor.whiteColor,weight: 10,)),
+        title: Text('${LocaleKeys.list_of.tr} ${LocaleKeys.student.tr}',
+          style: TextStyle(
+          color: AppColor.whiteColor,
+          fontWeight: FontWeight.bold
+        ),),
       ),
+      body: Obx(() {
+        if (!controller.hide.value) {
+          if (controller.students.isEmpty) {
+            return NotFound(text: LocaleKeys.list_school_not_found.tr,);
+          } else {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: controller.students.map((student) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 8.0),
+                      child: _buildStudentItem(student),
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          }
+        } else {
+          return ShimmerEtablissement();
+        }
+      }),
     );
   }
 
-  Widget dialog(Etablissement etablissement){
-    return  Dialog(
+  Widget dialog(Student student) {
+    return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -88,8 +68,9 @@ class StudentScreen extends GetView<StudentController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.network(
-              etablissement.logo,
+            student.image_url!.isNotEmpty
+                ? Image.network(
+              student.image_url!,
               height: 160,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -101,6 +82,12 @@ class StudentScreen extends GetView<StudentController> {
                   child: Icon(Icons.broken_image, color: Colors.grey, size: 50),
                 ),
               ),
+            )
+                : Image.asset(
+              'assets/images/default_student.png',
+              height: 160,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             Container(
               padding: const EdgeInsets.all(15),
@@ -109,7 +96,7 @@ class StudentScreen extends GetView<StudentController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    etablissement.nom_etab,
+                    '${LocaleKeys.first_name.tr} :${student.firstName}',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -118,7 +105,7 @@ class StudentScreen extends GetView<StudentController> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Année académique: ${etablissement.annee_academique}",
+                    '${LocaleKeys.last_name.tr} :${student.lastName}',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
@@ -126,7 +113,7 @@ class StudentScreen extends GetView<StudentController> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "Devise: ${etablissement.devise}",
+                    '${LocaleKeys.identification.tr} :${student.matricule}',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[600],
@@ -139,20 +126,20 @@ class StudentScreen extends GetView<StudentController> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          // Action for SHARE
+                          Get.back();
                         },
-                        child: const Text(
-                          "Supprimer",
-                          style: TextStyle(color: Colors.blueAccent),
+                        child: Text(
+                          LocaleKeys.cancel.tr,
+                          style: TextStyle(color: AppColor.primaryColor),
                         ),
                       ),
                       TextButton(
                         onPressed: () {
-                          Get.toNamed(Routes.CARTE);
+                          controller.goToNextPage(student);
                         },
-                        child: const Text(
-                          "Aller",
-                          style: TextStyle(color: Colors.blueAccent),
+                        child: Text(
+                          LocaleKeys.take_photo.tr,
+                          style: TextStyle(color: AppColor.primaryColor),
                         ),
                       ),
                     ],
@@ -166,68 +153,64 @@ class StudentScreen extends GetView<StudentController> {
     );
   }
 
-  Widget _buildEstablismentItem(Etablissement etablissement) {
+  Widget _buildStudentItem(Student student) {
     return InkWell(
-      onTap: (){
-        Get.dialog(dialog(etablissement));
+      onTap: () {
+        Get.dialog(dialog(student));
       },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Image.network(
-                    etablissement.logo,
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(width: 20),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(height: 5),
-                        Text(
-                          etablissement.nom_etab,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                        Container(height: 5),
-                        Text(
-                          etablissement.annee_academique,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                        Container(height: 10),
-                        Text(
-                          etablissement.devise,
-                          maxLines: 2,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              student.image_url!.isNotEmpty
+                  ? Image.network(
+                student.image_url!,
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+              )
+                  : Image.asset('assets/images/default_student.png'),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '${LocaleKeys.name.tr} :${student.firstName}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.grey[800],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 5),
+                    Text(
+                      '${LocaleKeys.last_name} :${student.lastName ?? ''}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${LocaleKeys.identification.tr} :${student.matricule}',
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

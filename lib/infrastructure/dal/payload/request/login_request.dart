@@ -5,7 +5,7 @@ class LoginRequest{
 
   Map<String, dynamic> toMap() {
     return {
-      'username': this.username,
+      'email': this.username,
       'password': this.password,
     };
   }

@@ -9,6 +9,8 @@ import '../../infrastructure/navigation/routes.dart';
 import '../components/Shimmer.dart';
 import '../components/app_colors.dart';
 import '../components/app_size.dart';
+import '../components/bottom_sheet.dart';
+import '../components/check_internet_connection.dart';
 import 'controllers/home.controller.dart';
 
 class HomePageScreen extends GetView<HomeController> {
@@ -27,18 +29,18 @@ class HomePageScreen extends GetView<HomeController> {
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
-      items: const [
+      items:  [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: LocaleKeys.home.tr,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
-          label: 'Search',
+          label: LocaleKeys.search.tr,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
-          label: 'Profile',
+          label: LocaleKeys.profile.tr,
         ),
       ],
     );
@@ -50,27 +52,29 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.change.value) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 5.h),
-                _buildWelcomeSection(),
-                SizedBox(height: 3.h),
-                ActionPage.buildSearchBar(),
-                SizedBox(height: 2.h),
-                ActionPage.buildGridActions(),
-                SizedBox(height: 2.h),
-                _buildRecentFilesHeader(),
-                _buildRecentFilesList(),
-              ],
+        return CheckInternetConnection(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5.h),
+                  _buildWelcomeSection(),
+                  SizedBox(height: 3.h),
+                  ActionPage.buildSearchBar(),
+                  SizedBox(height: 2.h),
+                  ActionPage.buildGridActions(),
+                  SizedBox(height: 2.h),
+                  _buildRecentFilesHeader(),
+                  _buildRecentFilesList(),
+                ],
+              ),
             ),
+            floatingActionButton: ActionPage.buildFloatingActionButtons(context),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            bottomNavigationBar: HomePageScreen().buildBottomNavigationBar(),
           ),
-          floatingActionButton: ActionPage.buildFloatingActionButtons(context),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          bottomNavigationBar: HomePageScreen().buildBottomNavigationBar(),
         );
       } else {
         return  Scaffold(body: ShimmerTile());
@@ -78,13 +82,13 @@ class HomeScreen extends GetView<HomeController> {
     });
   }
 
-  /// Widget: Section de bienvenue
+
   Widget _buildWelcomeSection() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Bienvenu sur ",
+          LocaleKeys.welcome_to.tr,
           style: TextStyle(
             color: AppColor.primaryColor,
             fontSize: AppSize.titleSize,
@@ -180,6 +184,7 @@ class ActionPage {
         crossAxisCount: 4,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
+          mainAxisExtent: 100
       ),
       itemBuilder: (context, index) {
         final action = actions[index];
@@ -229,7 +234,7 @@ class ActionPage {
     );
   }
 
-  /// Widget: Élément de fichier
+
   static Widget buildFileItem({required String title, required String subtitle, required IconData icon}) {
     return Card(
       elevation: 2,
@@ -272,7 +277,7 @@ class ActionPage {
           heroTag: "btn2",
           // onPressed: () => Get.dialog(newCard(context)),
           onPressed: () {
-            fastCreateCard(context);
+            FastCreateCards.fastCreateCard(context);
           },
           backgroundColor: Colors.blue[100],
           child: Icon(Icons.add, color: AppColor.primaryColor),
@@ -281,10 +286,10 @@ class ActionPage {
     );
   }
 
-  /// Actions associées
+
   static void _extractText() {
     Get.toNamed(Routes.GENERATE_TEXT);
-    Get.snackbar("Extract Text", "Fonctionnalité d'extraction activée !");
+    Get.snackbar(LocaleKeys.extract_text.tr, LocaleKeys.function_extract_text.tr);
   }
 
   static void _newSchool() {
@@ -292,27 +297,27 @@ class ActionPage {
   }
 
   static void _createCard() {
-    Get.snackbar("Create Card", "Création d'une carte personnalisée !");
+    Get.snackbar(LocaleKeys.create_card.tr, "Création d'une carte personnalisée !");
   }
 
   static void _showMyCard() {
-    Get.snackbar("My Card", "Affichage de votre carte !");
+    Get.snackbar(LocaleKeys.my_card.tr, "Affichage de votre carte !");
   }
 
   static void _download() {
-    Get.snackbar("Download", "Téléchargement en cours...");
+    Get.snackbar(LocaleKeys.download.tr, "Téléchargement en cours...");
   }
 
   static void _studentCard() {
-    Get.snackbar("Etudiant Card", "Gestion des cartes étudiantes !");
+    Get.snackbar(LocaleKeys.etudiant_card.tr, "Gestion des cartes étudiantes !");
   }
 
   static void _badge() {
-    Get.snackbar("Badge", "Génération de badges...");
+    Get.snackbar(LocaleKeys.badge.tr, "Génération de badges...");
   }
 
   static void _changeTheme() {
-    Get.snackbar("Theme", "Changement de thème !");
+    Get.snackbar(LocaleKeys.theme.tr, "Changement de thème !");
   }
 
   static void fastCreateCard(BuildContext context){
@@ -324,13 +329,13 @@ class ActionPage {
       builder: (BuildContext context) {
         final controller = Get.find<HomeController>();
         return Padding(
-          padding:  EdgeInsets.all(20.0.sp),
+          padding:  EdgeInsets.only(bottom: 10.h, left: 30.sp, right: 30.sp, top: 30.sp),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Creer une Carte", style: TextStyle(
+                  Text(LocaleKeys.create_card.tr, style: TextStyle(
                     fontSize: AppSize.titleSize,
                     fontWeight: FontWeight.w800
                   ),)
@@ -338,10 +343,10 @@ class ActionPage {
               ),
               TextFormField(
                 controller: controller.nomController,
-                decoration: InputDecoration(labelText: 'Nom'),
+                decoration: InputDecoration(labelText: LocaleKeys.name.tr),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer votre nom';
+                    return LocaleKeys.enter_your_name.tr;
                   }
                   return null;
                 },
@@ -351,10 +356,10 @@ class ActionPage {
               // Champ Prénom
               TextFormField(
                 controller: controller.prenomController,
-                decoration: InputDecoration(labelText: 'Prénom'),
+                decoration: InputDecoration(labelText: LocaleKeys.last_name.tr),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer votre prénom';
+                    return LocaleKeys.enter_your_surname.tr;
                   }
                   return null;
                 },
@@ -364,11 +369,11 @@ class ActionPage {
               // Champ Date de naissance
               TextFormField(
                 controller: controller.dateNaissanceController,
-                decoration: InputDecoration(labelText: 'Date de naissance'),
+                decoration: InputDecoration(labelText: LocaleKeys.birth_date.tr),
                 keyboardType: TextInputType.datetime,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer votre date de naissance';
+                    return LocaleKeys.enter_your_birth_date.tr;
                   }
                   return null;
                 },
@@ -378,10 +383,10 @@ class ActionPage {
               // Champ Adresse
               TextFormField(
                 controller: controller.adresseController,
-                decoration: InputDecoration(labelText: 'Adresse'),
+                decoration: InputDecoration(labelText: LocaleKeys.adress.tr),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer votre adresse';
+                    return LocaleKeys.enter_your_birth_adress.tr;
                   }
                   return null;
                 },
@@ -394,7 +399,7 @@ class ActionPage {
                     style: TextButton.styleFrom(
                       side: BorderSide(color: AppColor.danger, width: 2),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20), // Bordures arrondies (facultatif)
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     ),
@@ -403,7 +408,7 @@ class ActionPage {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text("Annuler",
+                        Text(LocaleKeys.cancel.tr,
                           style:  TextStyle(color: AppColor.danger
                               , fontSize: AppSize.textSize),),
                       ],
@@ -416,7 +421,7 @@ class ActionPage {
                     style: TextButton.styleFrom(
                       side: BorderSide(color: AppColor.success, width: 2),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20), // Bordures arrondies (facultatif)
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     ),
@@ -425,7 +430,7 @@ class ActionPage {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text("Creer",
+                        Text(LocaleKeys.create.tr,
                           style:  TextStyle(color: AppColor.success
                               , fontSize: AppSize.textSize),),
                       ],
