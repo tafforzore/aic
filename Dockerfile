@@ -23,6 +23,7 @@ RUN flutter config --enable-web
 RUN mkdir /Tp332/
 COPY . /Tp332/
 WORKDIR /Tp332/
+RUN flutter pub get
 RUN flutter build web
 
 
