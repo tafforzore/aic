@@ -34,7 +34,7 @@ class NotFound extends StatelessWidget{
           SizedBox(height: 40.sp,),
           SizedBox(
               width: 50.w,
-              child: CustomButton(text: 'Accueil', onPressed: (){Get.offAllNamed(Routes.HOME);},))
+              child: CustomButton(text: 'Accueil', onPressed: ()async{Get.offAllNamed(Routes.HOME);},))
         ],
       ),
     );

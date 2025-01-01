@@ -45,7 +45,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                   pauseAutoPlayOnTouch: true,
                   scrollDirection: Axis.horizontal,
                 ),
-                items: controller.imageUrls.map((imageUrl) {
+                items: controller.prototypeCards.map((protypeCard) {
                   return Builder(
                     builder: (BuildContext context) {
                       return InkWell(
@@ -55,7 +55,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
-                              image: NetworkImage(imageUrl),
+                              image: NetworkImage(protypeCard.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -65,7 +65,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                               padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                               color: Colors.black.withOpacity(0.5),
                               child: Text(
-                                '${LocaleKeys.image.tr} ${controller.imageUrls.indexOf(imageUrl) + 1}',
+                                '${LocaleKeys.image.tr} ${controller.prototypeCards.indexOf(protypeCard) + 1}',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16.0,
@@ -76,7 +76,7 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
                           ),
                         ),
                         onTap: (){
-                          FastCreateCards.fastCreateCardWithCardType(context, imageUrl);
+                          FastCreateCards.fastCreateCardWithCardType(context, protypeCard);
                         },
                       );
                     },

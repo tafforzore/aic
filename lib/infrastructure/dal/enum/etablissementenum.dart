@@ -5,6 +5,14 @@ enum EtablissmentEnum{
   WRONG_DATA,
   SERVER_ERROR
 }
+
+enum CardProtitypeEnum{
+  OK,
+  NOT_FOUND,
+  API_ERROR,
+  WRONG_DATA,
+  SERVER_ERROR
+}
 enum SchoolEnum{
   OK,
   NOT_FOUND,

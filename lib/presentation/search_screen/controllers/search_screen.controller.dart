@@ -1,6 +1,11 @@
+import 'package:finalaic/infrastructure/dal/enum/etablissementenum.dart';
+import 'package:finalaic/infrastructure/dal/services/school_service.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/entities/card_prototype.dart';
 import '../../../domain/entities/etablissement.dart';
+import '../../../domain/entity_response/card_protitype_entity.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class SearchScreenController extends GetxController {
   //TODO: Implement SearchScreenController
@@ -9,12 +14,16 @@ class SearchScreenController extends GetxController {
     await Future.delayed(Duration(seconds: 2));
   }
 
+
+
   final List<String> imageUrls = [
     'https://via.placeholder.com/800x400.png?text=Image+1',
     'https://via.placeholder.com/800x400.png?text=Image+2',
     'https://via.placeholder.com/800x400.png?text=Image+3',
     'https://via.placeholder.com/800x400.png?text=Image+4',
   ];
+
+  late List<CardPrototype> prototypeCards = [];
 
   List<Etablissement> etablissements = [
     Etablissement(
@@ -66,7 +75,6 @@ class SearchScreenController extends GetxController {
     ),
   ];
 
-//taille 150
 
 
   final count = 0.obs;
@@ -75,9 +83,21 @@ class SearchScreenController extends GetxController {
     super.onInit();
   }
 
+  getCards() async{
+    //recuperations des prototype de cardes
+    CardProtypeEntity cardProtypeEntity = await SchoolService().getCardPrototype();
+    if(cardProtypeEntity.cardProtitypeEnum == CardProtitypeEnum.OK){
+      prototypeCards = cardProtypeEntity.listCard!;
+      print('mes prto ${prototypeCards}');
+    }else{
+      Get.toNamed(Routes.ERROR_PAGE);
+    }
+  }
+
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
+   getCards();
   }
 
   @override
@@ -85,5 +105,4 @@ class SearchScreenController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }
