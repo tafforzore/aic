@@ -11,8 +11,8 @@ class SchoolController extends GetxController {
   //TODO: Implement SchoolController
   RxString etablissement = ''.obs;
   RxString id = ''.obs;
-
-  List<Classe> schools = [];
+  var schools = <Classe>[].obs;
+  // List<Classe> schools = [];
   RxBool hide = true.obs;
   viewDetails(Etablissement etablissements){
   }
@@ -22,7 +22,7 @@ class SchoolController extends GetxController {
   void loadData() async {
     ClassEntity classEntity = await SchoolService().getAllClasseById(id: id.value);
     if(classEntity.classeEnum == ClasseEnum.OK){
-      schools = classEntity.classes!;
+      schools.value = classEntity.classes!;
       print('voici mes salle de classe : ${schools}');
     }
     hide.value = false;
@@ -59,7 +59,6 @@ class SchoolController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    loadData();
   }
 
   @override

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+
+import 'app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -8,7 +12,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsets padding;
   final TextStyle textStyle;
 
-  const CustomButton({
+  CustomButton({
     Key? key,
     required this.text,
     required this.onPressed,
@@ -18,9 +22,11 @@ class CustomButton extends StatelessWidget {
     this.textStyle = const TextStyle(fontSize: 16, color: Colors.blue),
   }) : super(key: key);
 
+  final RxBool isLoading = false.obs;
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return Obx(() => TextButton(
       style: TextButton.styleFrom(
         side: BorderSide(color: borderColor, width: 2),
         shape: RoundedRectangleBorder(
@@ -28,17 +34,22 @@ class CustomButton extends StatelessWidget {
         ),
         padding: padding,
       ),
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Text(
-            text,
-            style: textStyle,
-          ),
-        ],
+      onPressed: isLoading.value
+          ? null
+          : () async {
+        isLoading.value = true;
+        await Future.delayed(const Duration(seconds: 4));
+        onPressed();
+        isLoading.value = false;
+      },
+      child: isLoading.value
+          ?  CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
+      )
+          : Text(
+        text,
+        style: textStyle,
       ),
-    );
+    ));
   }
 }

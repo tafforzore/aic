@@ -12,6 +12,7 @@ class EtablissementScreen extends GetView<EtablissementController> {
   const EtablissementScreen({super.key});
 
   Widget build(BuildContext context) {
+    controller.loadData();
     return Scaffold(
       body: CustomScrollView(
         slivers: [

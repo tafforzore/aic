@@ -1,13 +1,21 @@
+import 'package:finalaic/infrastructure/dal/enum/etablissementenum.dart';
+import 'package:finalaic/infrastructure/dal/services/school_service.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/entities/card_prototype.dart';
 import '../../../domain/entities/etablissement.dart';
+import '../../../domain/entity_response/card_protitype_entity.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class SearchScreenController extends GetxController {
   //TODO: Implement SearchScreenController
+  RxBool isLoading = false.obs;
 
   Future<void> refreshData() async {
     await Future.delayed(Duration(seconds: 2));
   }
+
+
 
   final List<String> imageUrls = [
     'https://via.placeholder.com/800x400.png?text=Image+1',
@@ -15,6 +23,8 @@ class SearchScreenController extends GetxController {
     'https://via.placeholder.com/800x400.png?text=Image+3',
     'https://via.placeholder.com/800x400.png?text=Image+4',
   ];
+
+  RxList<CardPrototype> prototypeCards = <CardPrototype>[].obs;
 
   List<Etablissement> etablissements = [
     Etablissement(
@@ -66,7 +76,6 @@ class SearchScreenController extends GetxController {
     ),
   ];
 
-//taille 150
 
 
   final count = 0.obs;
@@ -75,9 +84,28 @@ class SearchScreenController extends GetxController {
     super.onInit();
   }
 
+  getCards() async {
+    isLoading.value = true; // Commencez à charger
+    try {
+      CardProtypeEntity cardProtypeEntity = await SchoolService().getCardPrototype();
+      if (cardProtypeEntity.cardProtitypeEnum == CardProtitypeEnum.OK) {
+        prototypeCards.assignAll(cardProtypeEntity.listCard!);
+        print('mes proto ${prototypeCards}');
+      } else {
+        Get.toNamed(Routes.ERROR_PAGE);
+      }
+    } catch (e) {
+      print('Error fetching cards: $e');
+      Get.toNamed(Routes.ERROR_PAGE);
+    } finally {
+      isLoading.value = false; // Arrêtez de charger
+    }
+  }
+
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
+   getCards();
   }
 
   @override
@@ -85,5 +113,4 @@ class SearchScreenController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

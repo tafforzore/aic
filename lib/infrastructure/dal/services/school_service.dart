@@ -1,3 +1,4 @@
+import 'package:finalaic/domain/entity_response/card_protitype_entity.dart';
 import 'package:finalaic/domain/repositories/school_repository.dart';
 import 'package:finalaic/infrastructure/dal/enum/etablissementenum.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,11 @@ class SchoolService{
   Future<StudentEntity> getAllStudentByClassById({required String id}) async {
     return await schoolRepository.getAllStudentByClassById(id);
   }
+
+  Future<CardProtypeEntity> getCardPrototype() async {
+    return await schoolRepository.getPrototypeCard();
+  }
+
   Future<StudentEnum> updateStudent({required Student student}) async {
     return await schoolRepository.updateStudent(student);
   }

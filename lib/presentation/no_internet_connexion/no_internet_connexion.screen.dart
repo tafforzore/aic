@@ -59,7 +59,7 @@ class NoInternetConnexionScreen extends GetView<NoInternetConnexionController> {
               SizedBox(height: 50.sp,),
               SizedBox(
                   width: 50.w,
-                  child: CustomButton(text: LocaleKeys.retry.tr, onPressed: (){Get.back();},))
+                  child: CustomButton(text: LocaleKeys.retry.tr, onPressed: ()async{Get.back();},))
             ],
           ),
         )

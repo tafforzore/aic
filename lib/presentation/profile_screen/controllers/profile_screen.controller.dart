@@ -7,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 class ProfileScreenController extends GetxController {
   //TODO: Implement ProfileScreenController
   Rx<File?> profileImage = Rx<File?>(null);
-  RxString username = ''.obs;
-  RxString email = ''.obs;
-  RxString number = ''.obs;
-  RxString adress = ''.obs;
+  RxString username = 'Severin'.obs;
+  RxString email = 'severin@gmail.com'.obs;
+  RxString number = '651881464'.obs;
+  RxString adress = 'yaounde-cameroun'.obs;
 
   Future<void> pickImageFromCamera() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -44,6 +44,10 @@ class ProfileScreenController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  getProfileInformations() async {
+
   }
 
   void increment() => count.value++;

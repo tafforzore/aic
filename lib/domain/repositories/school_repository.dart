@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:finalaic/domain/entity_response/card_protitype_entity.dart';
 import 'package:finalaic/infrastructure/dal/enum/etablissementenum.dart';
 import '../../infrastructure/dal/dtos/etablissement_dto.dart';
 import '../../infrastructure/dal/payload/request/register_request.dart';
 import '../../infrastructure/network/dio_client.dart';
+import '../entities/card_prototype.dart';
 import '../entities/etablissement.dart';
 import '../entities/school.dart';
 import '../entities/student.dart';
@@ -122,6 +124,33 @@ class SchoolRepository {
     } catch (e) {
       print("Error: $e");
       return StudentEnum.SERVER_ERROR;
+    }
+  }
+
+  Future<CardProtypeEntity> getPrototypeCard() async {
+    try {
+      final response = await dioClient.dio.get('/app/prototype/');
+      if (response.statusCode == HttpStatus.ok) {
+        List<CardPrototype>? listCards = [];
+        for (var listCard in response.data as List) {
+          if (listCard is Map<String, dynamic>) {
+            listCards.add(CardPrototype.fromMap(listCard));
+          }
+        }
+        return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.OK,listCard: listCards);
+      } else if (response.statusCode == HttpStatus.badRequest) {
+        return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.WRONG_DATA);
+      } else if (response.statusCode == HttpStatus.notFound) {
+        return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.NOT_FOUND);
+      } else {
+        return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.SERVER_ERROR);
+      }
+    } on DioException catch (e) {
+      print("DioException: ${e.message}");
+      return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.SERVER_ERROR);
+    } catch (e) {
+      print("Error: $e");
+      return CardProtypeEntity(cardProtitypeEnum: CardProtitypeEnum.SERVER_ERROR);
     }
   }
 }
