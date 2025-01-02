@@ -15,6 +15,7 @@ class StudentScreen extends GetView<StudentController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.loadData();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.primaryColor,
@@ -84,7 +85,7 @@ class StudentScreen extends GetView<StudentController> {
               ),
             )
                 : Image.asset(
-              'assets/images/default_student.png',
+              'assets/images/default_user2.png',
               height: 160,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -171,11 +172,11 @@ class StudentScreen extends GetView<StudentController> {
               student.image_url!.isNotEmpty
                   ? Image.network(
                 student.image_url!,
-                height: 100,
-                width: 100,
+                height: 40,
+                width: 40,
                 fit: BoxFit.cover,
               )
-                  : Image.asset('assets/images/default_student.png'),
+                  : Image.asset('assets/images/default_user2.png',width: 40,height: 40,),
               const SizedBox(width: 20),
               Expanded(
                 child: Column(
@@ -209,6 +210,8 @@ class StudentScreen extends GetView<StudentController> {
                   ],
                 ),
               ),
+              student.image_url!.isNotEmpty?
+              Icon(Icons.check_circle, color: AppColor.primaryColor,):Container()
             ],
           ),
         ),

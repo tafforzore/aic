@@ -19,6 +19,7 @@ class SchoolScreen extends GetView<SchoolController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.loadData();
     return Scaffold(
       body: CustomScrollView(
         slivers: [

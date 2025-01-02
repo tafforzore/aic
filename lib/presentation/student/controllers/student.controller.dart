@@ -8,7 +8,8 @@ import '../../../infrastructure/dal/services/school_service.dart';
 import '../../../infrastructure/navigation/routes.dart';
 
 class StudentController extends GetxController {
-  List<Student> students = [];
+  // List<Student> students = [];
+  var students = <Student>[].obs;
 
   RxString etablissement = ''.obs;
   RxString id = ''.obs;
@@ -26,7 +27,7 @@ class StudentController extends GetxController {
     try {
       StudentEntity studentEntity = await SchoolService().getAllStudentByClassById(id: id.value);
       if (studentEntity.studentEnum == StudentEnum.OK) {
-        students = studentEntity.students ?? [];
+        students.value = studentEntity.students ?? [];
         print('Voici mes salles de classe : $students');
       }
     } catch (e) {
@@ -72,7 +73,7 @@ class StudentController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    loadData(); // Charger les données dès que le contrôleur est prêt
+
   }
 
   @override

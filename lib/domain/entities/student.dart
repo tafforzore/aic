@@ -21,22 +21,22 @@ class Student{
       'image_url': this.image_url,
       'photos': this.photos,
       // 'card_file': this.card_file,
-      'classe': this.classe,
+      'classe_id': this.classe,
     };
   }
 
   factory Student.fromMap(Map<String, dynamic> map) {
     return Student(
       id: map['id'] as int,
-      matricule: map['matricule'] as String,
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      date_of_birth: map['date_of_birth'] as String,
-      sexe: map['sexe'] as String,
-      image_url: map['image_url'] as String,
-      photos: map['photos'] as String,
+      matricule: map['matricule'] ?? 'undefined',
+      firstName: map['firstName'] ?? 'undefined',
+      lastName: map['lastName'] ?? 'undefined',
+      date_of_birth: map['date_of_birth'] ?? 'undefined',
+      sexe: map['sexe'] ?? 'masculin',
+      image_url: map['image_url'] ?? '',
+      photos: map['photos'] ?? 'https://via.placeholder.com/400x400.png',
       // card_file: map['card_file'] as String,
-      classe: map['classe'] as int,
+      classe: map['classe_id'] ?? 1,
     );
   }
 

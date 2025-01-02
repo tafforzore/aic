@@ -4,6 +4,7 @@ import 'package:finalaic/presentation/components/app_size.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../domain/entities/etablissement.dart';
 import '../../infrastructure/navigation/routes.dart';
@@ -32,58 +33,75 @@ class SearchScreenScreen extends GetView<SearchScreenController> {
             const SizedBox(
               height: 20,
             ),
-            Center(
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 200.0,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  aspectRatio: 16 / 9,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  pauseAutoPlayOnTouch: true,
-                  scrollDirection: Axis.horizontal,
-                ),
-                items: controller.prototypeCards.map((protypeCard) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return InkWell(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: DecorationImage(
-                              image: NetworkImage(protypeCard.image),
-                              fit: BoxFit.cover,
+
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (controller.prototypeCards.isEmpty) {
+                return const Center(
+                  child: Text('Aucune carte trouvée'),
+                );
+              } else {
+                return CarouselSlider(
+                  items: controller.prototypeCards.map((protypeCard) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return InkWell(
+                          onTap: () {
+                            FastCreateCards.fastCreateCardWithCardType(context, protypeCard);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              image: DecorationImage(
+                                image: NetworkImage(protypeCard.image),
+                                fit: BoxFit.cover,
+                                onError: (error, stackTrace) {
+                                  return; // Image par défaut
+                                },
+                              ),
                             ),
-                          ),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                              color: Colors.black.withOpacity(0.5),
-                              child: Text(
-                                '${LocaleKeys.image.tr} ${controller.prototypeCards.indexOf(protypeCard) + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                                color: Colors.black.withOpacity(0.5),
+                                child: Text(
+                                  '${LocaleKeys.image.tr} ${controller.prototypeCards.indexOf(protypeCard) + 1}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        onTap: (){
-                          FastCreateCards.fastCreateCardWithCardType(context, protypeCard);
-                        },
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    height: 30.h, // Hauteur dynamique
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 16 / 9,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    pauseAutoPlayOnTouch: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                );
+              }
+            }),
+
+
+
             SizedBox(
               height: 20,
             ),

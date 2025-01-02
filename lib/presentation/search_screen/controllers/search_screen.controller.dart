@@ -9,6 +9,7 @@ import '../../../infrastructure/navigation/routes.dart';
 
 class SearchScreenController extends GetxController {
   //TODO: Implement SearchScreenController
+  RxBool isLoading = false.obs;
 
   Future<void> refreshData() async {
     await Future.delayed(Duration(seconds: 2));
@@ -23,7 +24,7 @@ class SearchScreenController extends GetxController {
     'https://via.placeholder.com/800x400.png?text=Image+4',
   ];
 
-  late List<CardPrototype> prototypeCards = [];
+  RxList<CardPrototype> prototypeCards = <CardPrototype>[].obs;
 
   List<Etablissement> etablissements = [
     Etablissement(
@@ -83,14 +84,21 @@ class SearchScreenController extends GetxController {
     super.onInit();
   }
 
-  getCards() async{
-    //recuperations des prototype de cardes
-    CardProtypeEntity cardProtypeEntity = await SchoolService().getCardPrototype();
-    if(cardProtypeEntity.cardProtitypeEnum == CardProtitypeEnum.OK){
-      prototypeCards = cardProtypeEntity.listCard!;
-      print('mes prto ${prototypeCards}');
-    }else{
+  getCards() async {
+    isLoading.value = true; // Commencez à charger
+    try {
+      CardProtypeEntity cardProtypeEntity = await SchoolService().getCardPrototype();
+      if (cardProtypeEntity.cardProtitypeEnum == CardProtitypeEnum.OK) {
+        prototypeCards.assignAll(cardProtypeEntity.listCard!);
+        print('mes proto ${prototypeCards}');
+      } else {
+        Get.toNamed(Routes.ERROR_PAGE);
+      }
+    } catch (e) {
+      print('Error fetching cards: $e');
       Get.toNamed(Routes.ERROR_PAGE);
+    } finally {
+      isLoading.value = false; // Arrêtez de charger
     }
   }
 

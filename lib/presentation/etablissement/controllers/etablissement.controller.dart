@@ -9,7 +9,10 @@ import '../../../infrastructure/navigation/routes.dart';
 class EtablissementController extends GetxController {
   //TODO: Implement EtablissementController
   late EtablissmentEntity etablissmentEntity;
-  late final etablissements;
+  // late final etablissements;
+  var etablissements = <Etablissement>[].obs;
+
+
   RxBool hide = true.obs;
 
 
@@ -21,7 +24,7 @@ class EtablissementController extends GetxController {
     if(id!.isNotEmpty){
       etablissmentEntity = await SchoolService().getAllEtablissementById(id: id);
       if(etablissmentEntity.etablissmentEnum == EtablissmentEnum.OK){
-        etablissements = etablissmentEntity.etablissement;
+        etablissements.value = etablissmentEntity.etablissement!;
         print('voici mes etablissement : ${etablissements}');
       }else{
         Get.toNamed(Routes.ERROR_PAGE);
@@ -50,7 +53,7 @@ class EtablissementController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    loadData();
+    // loadData();
   }
 
   @override
